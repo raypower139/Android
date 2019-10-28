@@ -34,7 +34,9 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hillfort)
         toolbarAdd.title = title
-        setSupportActionBar(toolbarAdd)
+
+        setSupportActionBar(findViewById(R.id.toolbarAdd))
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
         info("Hillfort Activity started..")
 
 
