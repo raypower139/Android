@@ -15,9 +15,9 @@
         android:layout_height="625dp"
         android:layout_marginTop="60dp"
         android:gravity="center|top"
-        android:text="HILLFORT\nAPP"
+        android:text="HILLFORTS\nAPP"
         android:textColor="#fff"
-        android:textSize="80sp"
+        android:textSize="70sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
