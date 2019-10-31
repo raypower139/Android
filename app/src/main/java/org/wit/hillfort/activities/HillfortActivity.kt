@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_hillfort.*
 import kotlinx.android.synthetic.main.activity_hillfort_list.*
+import kotlinx.android.synthetic.main.card_hillfort.view.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.intentFor
@@ -22,12 +25,15 @@ import org.wit.hillfort.models.HillfortModel
 import org.wit.hillfort.models.HillfortMemStore
 import org.wit.hillfort.models.HillfortStore
 
+
 class HillfortActivity : AppCompatActivity(), AnkoLogger {
 
     var hillfort = HillfortModel()
     lateinit var app: MainApp
     val IMAGE_REQUEST = 1
     val LOCATION_REQUEST = 2
+    var i = 0
+    var img = String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,9 +45,6 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
         info("Hillfort Activity started..")
 
-
-
-
         app = application as MainApp
         var edit = false
         if (intent.hasExtra("hillfort_edit")) {
@@ -50,12 +53,16 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
             hillfortTitle.setText(hillfort.title)
             description.setText(hillfort.description)
             btnAdd.setText(R.string.save_hillfort)
-            hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image))
-            if (hillfort.image != null) {
-                chooseImage.setText(R.string.change_hillfort_image)
-            }
-
+            //if (hillfort.image.size != 0) {
+            //chooseImage.setText(R.string.change_hillfort_image)
+                //hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image[0]))
+                //hillfortImage2.setImageBitmap(readImageFromPath(this, hillfort.image[1]))
+               // hillfortImage3.setImageBitmap(readImageFromPath(this, hillfort.image[2]))
+                //hillfortImage4.setImageBitmap(readImageFromPath(this, hillfort.image[3]))
+            //}
         }
+
+
 
         btnAdd.setOnClickListener() {
             hillfort.title = hillfortTitle.text.toString()
@@ -75,8 +82,21 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
         }
 
         chooseImage.setOnClickListener {
+            info ("Select image")
             showImagePicker(this, IMAGE_REQUEST)
+
         }
+        hillfortImage.setOnClickListener {
+
+            if (hillfort.image.size != 0){
+                i+=1
+                if (i == hillfort.image.size){
+                    i = 0
+                }
+                hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image[i]))
+            }
+        }
+
 
         hillfortLocation.setOnClickListener {
             val location = Location(52.245696, -7.139102, 15f)
@@ -113,10 +133,12 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
         when (requestCode) {
             IMAGE_REQUEST -> {
                 if (data != null) {
-                    hillfort.image = data.getData().toString()
+                    hillfort.image.add(data.getData().toString())
                     hillfortImage.setImageBitmap(readImage(this, resultCode, data))
+                    Toast.makeText(this, "Image Saved!", Toast.LENGTH_SHORT).show()
                     chooseImage.setText(R.string.change_hillfort_image)
                 }
+
             }
             LOCATION_REQUEST -> {
                 if (data != null) {

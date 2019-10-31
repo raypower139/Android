@@ -39,9 +39,17 @@ class HillfortAdapter constructor(private var hillforts: List<HillfortModel>,
     class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(hillfort: HillfortModel, listener: HillfortListener) {
+            itemView.imageIcon.visibility = View.VISIBLE
             itemView.hillfortTitle.text = hillfort.title
             itemView.description.text = hillfort.description
-            itemView.imageIcon.setImageBitmap(readImageFromPath(itemView.context, hillfort.image))
+            if (hillfort.image.size > 0){
+                itemView.imageIcon.setImageBitmap(readImageFromPath(itemView.context, hillfort.image[0]))
+            }
+            else if (hillfort.image.size == 0){
+                itemView.imageIcon.visibility = View.VISIBLE
+            }
+
+
             itemView.setOnClickListener { listener.onHillfortClick(hillfort) }
         }
     }
