@@ -53,6 +53,21 @@ class UserJSONStore : UserStore, AnkoLogger {
         }
     }
 
+    override fun login(name: String, password: String): Boolean {
+        val user = findByName(name)
+
+        if (user != null){
+            if (user.password == password){
+                return true
+            }
+        }
+        return false
+    }
+    override fun findByName(name: String): UserModel? {
+        return users.find { user -> user.name == name }
+    }
+
+
     private fun serialize() {
         val jsonString = user_gsonBuilder.toJson(users, userlistType)
         write(context, USER_JSON_FILE, jsonString)

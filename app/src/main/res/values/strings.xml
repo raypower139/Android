@@ -17,6 +17,11 @@
   <string name="change_hillfort_image">Change hillfort image</string>
   <string name="add_hillfort_image">Add another Image</string>
 
+  //Login
+  <string name="password">Password </string>
+  <string name="name">Name</string>
+  <string name="Signin">Sign in</string>
+  <string name="Signup">Sign up</string>
 
     <string name="title_activity_maps">Map</string>
 </resources>
