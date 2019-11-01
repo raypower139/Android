@@ -35,14 +35,15 @@ class UserJSONStore : UserStore, AnkoLogger {
         return users
     }
 
+    override fun findByName(name: String): UserModel? {
+        return users.find { user -> user.name == name }
+    }
+
     override fun create(user: UserModel) {
         user.id = generateRandomUserId()
         users.add(user)
         serialize()
     }
-
-
-
 
     override fun update(user: UserModel) {
         var foundUser: UserModel? = users.find { p -> p.id == user.id }
@@ -63,9 +64,7 @@ class UserJSONStore : UserStore, AnkoLogger {
         }
         return false
     }
-    override fun findByName(name: String): UserModel? {
-        return users.find { user -> user.name == name }
-    }
+
 
 
     private fun serialize() {

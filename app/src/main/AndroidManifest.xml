@@ -43,6 +43,13 @@
             android:parentActivityName=".activities.HillfortActivity">
 
         </activity>
+
+        <activity android:name=".activities.SignUpActivity"
+            android:parentActivityName=".activities.LoginActivity">
+
+        </activity>
+
+
     </application>
 
 </manifest>

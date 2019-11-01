@@ -24,6 +24,7 @@ class HillfortListActivity : AppCompatActivity(), HillfortListener  {
     setContentView(R.layout.activity_hillfort_list)
     app = application as MainApp
     toolbar.title = title
+    toolbar.setSubtitle("${app.currentUser.name}")
     setSupportActionBar(toolbar)
 
     getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)

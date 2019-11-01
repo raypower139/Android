@@ -4,7 +4,7 @@
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-tools:context=".activities.LoginActivity">
+tools:context=".activities.SignUpActivity">
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -18,7 +18,7 @@ tools:context=".activities.LoginActivity">
         android:src="@drawable/hillfort" />
 
     <EditText
-        android:id="@+id/loginName"
+        android:id="@+id/signupName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
@@ -29,7 +29,7 @@ tools:context=".activities.LoginActivity">
         android:layout_marginTop="20dp"
         />
     <EditText
-        android:id="@+id/loginPassword"
+        android:id="@+id/signupPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
@@ -38,20 +38,6 @@ tools:context=".activities.LoginActivity">
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="15dp"
-        />
-
-
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Signin"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="30dp"
-        android:textAllCaps="false"
-        android:textSize="20dp"
         />
 
     <Button
