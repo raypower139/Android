@@ -130,8 +130,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
 
             when (item?.itemId) {
                 R.id.item_cancel -> {
-                    //finish()
-                    startActivity<SettingsActivity>()
+                    finish()
                 }
                 R.id.item_delete -> {
                     app.hillforts.delete(hillfort)

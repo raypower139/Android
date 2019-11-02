@@ -30,10 +30,10 @@ class LoginActivity : AppCompatActivity(), AnkoLogger {
         btnLogin.setOnClickListener() {
 
             // Basic validation for input fields
-            if (loginEmail.text.toString().isEmpty()) {
-                toast("Please enter your name.")
-            } else if (loginPassword.text.toString().isEmpty()) {
-                toast("Please enter a password.")
+            if (loginEmail.text.toString().isEmpty()|| loginEmail.text.toString().length < 5) {
+                toast("Please enter your name, must be 5 characters or more..")
+            } else if (loginPassword.text.toString().isEmpty()|| loginEmail.text.toString().length < 5) {
+                toast("Please enter a password, must be 5 characters or more.")
             }
 
 
