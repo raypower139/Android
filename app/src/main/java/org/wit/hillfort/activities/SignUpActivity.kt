@@ -26,9 +26,9 @@ class SignUpActivity : AppCompatActivity(), AnkoLogger {
         btnSignUp.setOnClickListener {
 
 
-            if (signupName != null && signupPassword != null) {
+            if (signupEmail != null && signupPassword != null) {
 
-                val result = app.users.findByName(signupName.text.toString())
+                val result = app.users.findByEmail(signupEmail.text.toString())
 
                 if (result == null) {
 
@@ -36,6 +36,7 @@ class SignUpActivity : AppCompatActivity(), AnkoLogger {
                         UserModel(
                             generateRandomId(),
                             signupName.text.toString(),
+                            signupEmail.text.toString(),
                             signupPassword.text.toString()
                         )
                     )
@@ -43,15 +44,15 @@ class SignUpActivity : AppCompatActivity(), AnkoLogger {
                     startActivity(intentFor<LoginActivity>())
 
                     val resultLogin =
-                        app.users.login(signupName.text.toString(), signupPassword.text.toString())
+                        app.users.login(signupEmail.text.toString(), signupPassword.text.toString())
                     if (resultLogin) {
-                        var currentUser = app.users.findByName(signupName.text.toString())
+                        var currentUser = app.users.findByEmail(signupEmail.text.toString())
                         if (currentUser != null) {
                             app.currentUser = currentUser
                             startActivity(intentFor<HillfortListActivity>())
                         }
 
-                    } else (toast("A user with that name already exists, please choose another"))
+                    } else (toast("A user with that email already exists, please choose another"))
                 }
             }
         }

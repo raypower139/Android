@@ -30,16 +30,16 @@ class LoginActivity : AppCompatActivity(), AnkoLogger {
         btnLogin.setOnClickListener() {
 
             // Basic validation for input fields
-            if (loginName.text.toString().isEmpty()) {
+            if (loginEmail.text.toString().isEmpty()) {
                 toast("Please enter your name.")
             } else if (loginPassword.text.toString().isEmpty()) {
                 toast("Please enter a password.")
             }
 
 
-                val result = app.users.login(loginName.text.toString(), loginPassword.text.toString())
+                val result = app.users.login(loginEmail.text.toString(), loginPassword.text.toString())
                 if (result) {
-                    var currentUser = app.users.findByName(loginName.text.toString())
+                    var currentUser = app.users.findByEmail(loginEmail.text.toString())
                     if (currentUser != null) {
                         app.currentUser = currentUser
                         startActivity(intentFor<HillfortListActivity>())

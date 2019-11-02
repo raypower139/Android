@@ -21,8 +21,8 @@ class UserMemStore : UserStore, AnkoLogger {
         users.remove(user)
     }
 
-    override fun login(name: String, password: String): Boolean {
-        val user = findByName(name)
+    override fun login(email: String, password: String): Boolean {
+        val user = findByEmail(email)
 
         if (user != null){
             if (user.password == password){
@@ -31,8 +31,8 @@ class UserMemStore : UserStore, AnkoLogger {
         }
         return false
     }
-    override fun findByName(name: String): UserModel? {
-        return users.find { user -> user.name == name }
+    override fun findByEmail(email: String): UserModel? {
+        return users.find { user -> user.email == email }
     }
 
     fun logAll() {
@@ -43,7 +43,8 @@ class UserMemStore : UserStore, AnkoLogger {
         var foundUser: UserModel? = users.find { p -> p.id == user.id }
         if (foundUser != null) {
             foundUser.name = user.name
-            foundUser.name = user.password
+            foundUser.email = user.email
+            foundUser.password = user.password
 
 
             logAll()

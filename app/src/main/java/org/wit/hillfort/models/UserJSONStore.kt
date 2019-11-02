@@ -35,8 +35,8 @@ class UserJSONStore : UserStore, AnkoLogger {
         return users
     }
 
-    override fun findByName(name: String): UserModel? {
-        return users.find { user -> user.name == name }
+    override fun findByEmail(email: String): UserModel? {
+        return users.find { user -> user.email == email }
     }
 
     override fun create(user: UserModel) {
@@ -49,13 +49,14 @@ class UserJSONStore : UserStore, AnkoLogger {
         var foundUser: UserModel? = users.find { p -> p.id == user.id }
         if (foundUser != null) {
             foundUser.name = user.name
+            foundUser.email = user.email
             foundUser.password = user.password
             serialize()
         }
     }
 
-    override fun login(name: String, password: String): Boolean {
-        val user = findByName(name)
+    override fun login(email: String, password: String): Boolean {
+        val user = findByEmail(email)
 
         if (user != null){
             if (user.password == password){

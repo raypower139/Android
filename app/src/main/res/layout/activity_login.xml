@@ -18,11 +18,11 @@ tools:context=".activities.LoginActivity">
         android:src="@drawable/hillfort" />
 
     <EditText
-        android:id="@+id/loginName"
+        android:id="@+id/loginEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:hint="@string/name"
+        android:hint="@string/email"
         android:drawablePadding="10dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"

@@ -20,6 +20,7 @@
   //Login
   <string name="password">Password </string>
   <string name="name">Name</string>
+  <string name="email">Email</string>
   <string name="Signin">Sign in</string>
   <string name="Signup">Sign up</string>
 
