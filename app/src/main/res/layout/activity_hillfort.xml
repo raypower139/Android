@@ -48,11 +48,11 @@
           android:autofillHints=""
           android:hint="@string/hint_hillfortTitle"
           android:inputType="text"
-          android:maxLength="25"
+          android:maxLength="35"
           android:maxLines="1"
           android:padding="8dp"
           android:textColor="@color/colorPrimaryDark"
-          android:textSize="14sp" />
+          android:textSize="20sp" />
 
         <EditText
           android:id="@+id/description"
@@ -60,12 +60,22 @@
           android:layout_height="wrap_content"
           android:layout_margin="8dp"
           android:hint="@string/hint_hillfortDescription"
-          android:inputType="text"
-          android:maxLength="25"
-          android:maxLines="1"
+          android:maxLength="200"
+          android:maxLines="3"
           android:padding="8dp"
           android:textColor="@color/colorPrimaryDark"
-          android:textSize="14sp"/>
+          android:textSize="14sp"
+            />
+
+        <CheckBox
+            android:id="@+id/visited_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Visited"
+            />
 
         <Button
             android:id="@+id/chooseImage"
@@ -79,6 +89,14 @@
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"/>
 
+
+        <TextView
+            android:id="@+id/hillfort_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="3dp"
+            android:text="Click on the image below to view the available images."
+             />
 
         <ImageView
             android:id="@+id/hillfortImage"

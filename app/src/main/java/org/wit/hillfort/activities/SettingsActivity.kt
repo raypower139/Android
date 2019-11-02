@@ -35,6 +35,7 @@ class SettingsActivity : AppCompatActivity(), AnkoLogger {
     showName.setText(app.currentUser.name)
     showEmail.setText(app.currentUser.email)
     showPassword.setText(app.currentUser.password)
+
   }
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -21,6 +21,7 @@ import org.wit.hillfort.models.Location
 import org.wit.hillfort.models.HillfortModel
 import org.wit.hillfort.models.HillfortMemStore
 import org.wit.hillfort.models.HillfortStore
+import android.widget.CheckBox
 
 
 class HillfortActivity : AppCompatActivity(), AnkoLogger {
@@ -30,7 +31,6 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
     val IMAGE_REQUEST = 1
     val LOCATION_REQUEST = 2
     var i = 0
-    var img = String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,106 +49,124 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
             hillfort = intent.extras?.getParcelable<HillfortModel>("hillfort_edit")!!
             hillfortTitle.setText(hillfort.title)
             description.setText(hillfort.description)
-            btnAdd.setText(R.string.save_hillfort)
-            //if (hillfort.image.size != 0) {
-            //chooseImage.setText(R.string.change_hillfort_image)
+            if (hillfort.visited) {
+                visited_checkbox.isChecked = true
+            }
+                btnAdd.setText(R.string.save_hillfort)
+                //if (hillfort.image.size != 0) {
+                //chooseImage.setText(R.string.change_hillfort_image)
                 //hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image[0]))
                 //hillfortImage2.setImageBitmap(readImageFromPath(this, hillfort.image[1]))
-               // hillfortImage3.setImageBitmap(readImageFromPath(this, hillfort.image[2]))
+                // hillfortImage3.setImageBitmap(readImageFromPath(this, hillfort.image[2]))
                 //hillfortImage4.setImageBitmap(readImageFromPath(this, hillfort.image[3]))
-            //}
-        }
+                //}
+            }
 
-
-
-        btnAdd.setOnClickListener() {
-            hillfort.title = hillfortTitle.text.toString()
-            hillfort.description = description.text.toString()
-            if (hillfort.title.isEmpty()) {
-                toast(R.string.enter_hillfort_title)
-            } else {
-                if (edit) {
-                    app.hillforts.update(hillfort.copy())
+            visited_checkbox.setOnClickListener(View.OnClickListener {
+                if (visited_checkbox.isChecked) {
+                    hillfort.visited = true
                 } else {
-                    app.hillforts.create(hillfort.copy())
+                    hillfort.visited = false
                 }
-            }
-            info("add Button Pressed: $hillfortTitle")
-            setResult(AppCompatActivity.RESULT_OK)
-            finish()
-        }
+            })
 
-        chooseImage.setOnClickListener {
-            info ("Select image")
-            showImagePicker(this, IMAGE_REQUEST)
-
-        }
-        hillfortImage.setOnClickListener {
-
-            if (hillfort.image.size != 0){
-                i+=1
-                if (i == hillfort.image.size){
-                    i = 0
+            btnAdd.setOnClickListener() {
+                hillfort.title = hillfortTitle.text.toString()
+                hillfort.description = description.text.toString()
+                hillfort.visited = hillfort.visited
+                if (hillfort.title.isEmpty()) {
+                    toast(R.string.enter_hillfort_title)
+                } else {
+                    if (edit) {
+                        app.hillforts.update(hillfort.copy())
+                    } else {
+                        app.hillforts.create(hillfort.copy())
+                    }
                 }
-                hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image[i]))
-            }
-        }
-
-
-        hillfortLocation.setOnClickListener {
-            val location = Location(52.245696, -7.139102, 15f)
-            if (hillfort.zoom != 0f) {
-                location.lat =  hillfort.lat
-                location.lng = hillfort.lng
-                location.zoom = hillfort.zoom
-            }
-            startActivityForResult(intentFor<MapActivity>().putExtra("location", location), LOCATION_REQUEST)
-        }
-    }
-
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_hillfort, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            R.id.item_cancel -> {
-                //finish()
-                startActivity<SettingsActivity>()
-            }
-            R.id.item_delete -> {
-                app.hillforts.delete(hillfort)
+                info("add Button Pressed: $hillfortTitle")
+                setResult(AppCompatActivity.RESULT_OK)
                 finish()
             }
-        }
-        return super.onOptionsItemSelected(item)
-    }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            IMAGE_REQUEST -> {
-                if (data != null) {
-                    hillfort.image.add(data.getData().toString())
-                    hillfortImage.setImageBitmap(readImage(this, resultCode, data))
-                    Toast.makeText(this, "Image Saved!", Toast.LENGTH_SHORT).show()
-                    chooseImage.setText(R.string.change_hillfort_image)
-                }
+            chooseImage.setOnClickListener {
+                info("Select image")
+                showImagePicker(this, IMAGE_REQUEST)
 
             }
-            LOCATION_REQUEST -> {
-                if (data != null) {
-                    val location = data.extras?.getParcelable<Location>("location")!!
-                    hillfort.lat = location.lat
-                    hillfort.lng = location.lng
-                    hillfort.zoom = location.zoom
+            hillfortImage.setOnClickListener {
+
+                if (hillfort.image.size != 0) {
+                    i += 1
+                    if (i == hillfort.image.size) {
+                        i = 0
+                    }
+                    hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image[i]))
                 }
+            }
+
+
+            hillfortLocation.setOnClickListener {
+                val location = Location(52.245696, -7.139102, 15f)
+                if (hillfort.zoom != 0f) {
+                    location.lat = hillfort.lat
+                    location.lng = hillfort.lng
+                    location.zoom = hillfort.zoom
+                }
+                startActivityForResult(
+                    intentFor<MapActivity>().putExtra("location", location),
+                    LOCATION_REQUEST
+                )
             }
         }
 
+
+        override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+            menuInflater.inflate(R.menu.menu_hillfort, menu)
+            return super.onCreateOptionsMenu(menu)
+        }
+
+        override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+
+            when (item?.itemId) {
+                R.id.item_cancel -> {
+                    //finish()
+                    startActivity<SettingsActivity>()
+                }
+                R.id.item_delete -> {
+                    app.hillforts.delete(hillfort)
+                    finish()
+                }
+                R.id.item_settings -> startActivity<SettingsActivity>()
+                R.id.item_logout -> finish()
+            }
+            return super.onOptionsItemSelected(item)
+        }
+
+        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+            super.onActivityResult(requestCode, resultCode, data)
+            when (requestCode) {
+                IMAGE_REQUEST -> {
+                    if (data != null) {
+                        hillfort.image.add(data.getData().toString())
+                        hillfortImage.setImageBitmap(readImage(this, resultCode, data))
+                        Toast.makeText(this, "Image Saved!", Toast.LENGTH_SHORT).show()
+                        chooseImage.setText(R.string.change_hillfort_image)
+                    }
+
+                }
+                LOCATION_REQUEST -> {
+                    if (data != null) {
+                        val location = data.extras?.getParcelable<Location>("location")!!
+                        hillfort.lat = location.lat
+                        hillfort.lng = location.lng
+                        hillfort.zoom = location.zoom
+                    }
+                }
+            }
+
+        }
     }
-}
+
 
 
