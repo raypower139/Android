@@ -4,6 +4,7 @@
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
+    android:background="@drawable/hillfort2"
 tools:context=".activities.SignUpActivity">
 
 <LinearLayout
@@ -12,10 +13,20 @@ tools:context=".activities.SignUpActivity">
     android:orientation="vertical"
     android:layout_centerVertical="true">
 
-    <ImageView
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:src="@drawable/hillfort" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="250dp"
+        android:layout_marginEnd="0dp"
+        android:text="Sign Up"
+        android:textAlignment="center"
+        android:textSize="40dp"
+        android:textColor="@color/colorPrimary"
+        android:textFontWeight="500"
+        android:fontFamily="sans-serif-medium"
+        />
 
     <EditText
         android:id="@+id/signupName"
@@ -23,6 +34,7 @@ tools:context=".activities.SignUpActivity">
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:hint="@string/name"
+        android:background="@color/colorPrimary"
         android:drawablePadding="10dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
@@ -35,6 +47,7 @@ tools:context=".activities.SignUpActivity">
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:hint="@string/email"
+        android:background="@color/colorPrimary"
         android:drawablePadding="10dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
@@ -47,6 +60,7 @@ tools:context=".activities.SignUpActivity">
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:hint="@string/password"
+        android:background="@color/colorPrimary"
         android:drawablePadding="10dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
@@ -62,6 +76,7 @@ tools:context=".activities.SignUpActivity">
         android:text="@string/Signup"
         android:padding="10dp"
         android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:textSize="20dp"
         />
 

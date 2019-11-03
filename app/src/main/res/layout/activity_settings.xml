@@ -5,6 +5,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+    android:background="@drawable/bg"
   tools:context="org.wit.hillfort.activities.SettingsActivity">
 
   <RelativeLayout
@@ -41,29 +42,55 @@
         android:orientation="vertical">
 
 
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="67dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="User Settings"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textFontWeight="500"
+            android:textSize="40dp"
+            android:layout_marginTop="10dp"
 
+            />
 
         <EditText
             android:id="@+id/showName"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name" />
-
-        <EditText
-            android:id="@+id/showPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPassword" />
+            android:text="Name"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:background="@color/colorPrimary"
+            />
 
         <EditText
             android:id="@+id/showEmail"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="20dp"
+            android:padding="10dp"
+            android:background="@color/colorPrimary"
+            />
+
+        <EditText
+            android:id="@+id/showPassword"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorPrimary"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:padding="10dp" />
       </LinearLayout>
 
     </ScrollView>

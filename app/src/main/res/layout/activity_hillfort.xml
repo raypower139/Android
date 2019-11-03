@@ -5,6 +5,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+    android:background="@drawable/bg"
   tools:context="org.wit.hillfort.activities.HillfortActivity">
 
   <RelativeLayout
@@ -40,40 +41,62 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <EditText
-          android:id="@+id/hillfortTitle"
-          android:layout_width="match_parent"
-          android:layout_height="45dp"
-          android:layout_margin="8dp"
-          android:autofillHints=""
-          android:hint="@string/hint_hillfortTitle"
-          android:inputType="text"
-          android:maxLength="35"
-          android:maxLines="1"
-          android:padding="8dp"
-          android:textColor="@color/colorPrimaryDark"
-          android:textSize="20sp" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="201dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:text="Hillfort Name" />
 
         <EditText
-          android:id="@+id/description"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_margin="8dp"
-          android:hint="@string/hint_hillfortDescription"
-          android:maxLength="200"
-          android:maxLines="3"
-          android:padding="8dp"
-          android:textColor="@color/colorPrimaryDark"
-          android:textSize="14sp"
+            android:id="@+id/hillfortTitle"
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            android:autofillHints="Name"
+            android:background="@color/colorPrimary"
+            android:hint="@string/hint_hillfortTitle"
+            android:inputType="text"
+            android:maxLength="35"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
+            android:padding="8dp"
+
+            />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="168dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:text="Hillfort Description" />
+
+        <EditText
+            android:id="@+id/description"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorPrimary"
+            android:hint="@string/hint_hillfortDescription"
+            android:maxLength="200"
+            android:maxLines="3"
+            android:padding="8dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
+
+
             />
 
         <CheckBox
             android:id="@+id/visited_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
             android:text="Visited"
             />
 
@@ -96,13 +119,19 @@
             android:layout_height="wrap_content"
             android:paddingBottom="3dp"
             android:text="Click on the image below to view the available images."
-             />
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textFontWeight="800"
+            android:fontFamily="sans-serif-medium"
+            />
 
         <ImageView
             android:id="@+id/hillfortImage"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            app:srcCompat="@mipmap/ic_launcher"/>
+            app:srcCompat="@mipmap/ic_launcher"
+            android:layout_marginLeft="50dp"
+            />
 
 
         <Button

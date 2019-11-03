@@ -3,6 +3,7 @@ package org.wit.hillfort.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.system.Os.close
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -22,9 +23,12 @@ import org.wit.hillfort.models.HillfortModel
 import org.wit.hillfort.models.HillfortMemStore
 import org.wit.hillfort.models.HillfortStore
 import android.widget.CheckBox
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
 
 
-class HillfortActivity : AppCompatActivity(), AnkoLogger {
+class HillfortActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavigationItemSelectedListener {
 
     var hillfort = HillfortModel()
     lateinit var app: MainApp
@@ -32,15 +36,22 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
     val LOCATION_REQUEST = 2
     var i = 0
 
+    private val drawerLayout by lazy {
+        findViewById<DrawerLayout>(R.id.drawer_layout)
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_hillfort)
+        setContentView(R.layout.activity_hillfort_nav)
         toolbarAdd.title = title
 
         setSupportActionBar(findViewById(R.id.toolbarAdd))
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
         info("Hillfort Activity started..")
+
+        val navView = findViewById<NavigationView>(R.id.nav_view)
+        navView.setNavigationItemSelectedListener(this)
 
         app = application as MainApp
         var edit = false
@@ -137,7 +148,8 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
                     finish()
                 }
                 R.id.item_settings -> startActivity<SettingsActivity>()
-                R.id.item_logout -> finish()
+                R.id.action_logout -> startActivity<LoginActivity>()
+                R.id.action_close -> finishAffinity()
             }
             return super.onOptionsItemSelected(item)
         }
@@ -165,7 +177,19 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
             }
 
         }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        drawerLayout.closeDrawer(GravityCompat.START)
+        when (item.itemId) {
+            R.id.action_add -> startActivity<HillfortActivity>()
+            R.id.action_settings -> startActivity<SettingsActivity>()
+            R.id.action_logout -> startActivity<LoginActivity>()
+            R.id.action_close -> finishAffinity()
+        }
+        return true
     }
+
+}
 
 
 
