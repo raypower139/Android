@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_hillfort_list.*
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.startActivity
@@ -22,7 +23,7 @@ class HillfortListActivity : AppCompatActivity(), HillfortListener  {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_hillfort_list)
+    setContentView(R.layout.activity_main_nav)
     app = application as MainApp
     toolbar.title = title
     toolbar.setSubtitle("${app.currentUser.name}")
@@ -56,5 +57,7 @@ class HillfortListActivity : AppCompatActivity(), HillfortListener  {
     recyclerView.adapter?.notifyDataSetChanged()
     super.onActivityResult(requestCode, resultCode, data)
   }
+
+
 }
 
