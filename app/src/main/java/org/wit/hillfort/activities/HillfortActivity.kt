@@ -89,7 +89,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
                     toast(R.string.enter_hillfort_title)
                 } else {
                     if (edit) {
-                        app.hillforts.update(hillfort.copy())
+                        app.hillforts.updateHillfort(hillfort.copy())
                     } else {
                         app.hillforts.create(hillfort.copy())
                     }

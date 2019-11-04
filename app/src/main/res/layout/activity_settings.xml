@@ -91,6 +91,14 @@
             android:ems="10"
             android:inputType="textPassword"
             android:padding="10dp" />
+
+        <Button
+            android:id="@+id/updateUserButton"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Update User"
+            android:layout_marginTop="20dp"
+            />
       </LinearLayout>
 
     </ScrollView>

@@ -45,7 +45,7 @@ class UserJSONStore : UserStore, AnkoLogger {
         serialize()
     }
 
-    override fun update(user: UserModel) {
+    override fun updateUser(user: UserModel) {
         var foundUser: UserModel? = users.find { p -> p.id == user.id }
         if (foundUser != null) {
             foundUser.name = user.name

@@ -8,15 +8,14 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.activity_hillfort.*
 import kotlinx.android.synthetic.main.activity_hillfort_list.*
 import kotlinx.android.synthetic.main.activity_settings.*
-import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.intentFor
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.startActivityForResult
+import org.jetbrains.anko.*
 import org.wit.hillfort.R
 import org.wit.hillfort.main.MainApp
 import org.wit.hillfort.models.HillfortModel
+import org.wit.hillfort.models.UserModel
 
 
 class SettingsActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavigationItemSelectedListener {
@@ -25,6 +24,7 @@ class SettingsActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
   private val drawerLayout by lazy {
     findViewById<DrawerLayout>(R.id.drawer_layout)
   }
+  private var updateUser = UserModel()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -36,13 +36,26 @@ class SettingsActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
     setSupportActionBar(toolbarSettings)
     getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
 
+
     val navView = findViewById<NavigationView>(R.id.nav_view)
     navView.setNavigationItemSelectedListener(this)
 
-    showName.setText(app.currentUser.name)
-    showEmail.setText(app.currentUser.email)
-    showPassword.setText(app.currentUser.password)
+      showName.setText(app.currentUser.name)
+      showEmail.setText(app.currentUser.email)
+      showPassword.setText(app.currentUser.password)
 
+    updateUserButton.setOnClickListener() {
+      updateUser.id = app.currentUser.id
+      updateUser.name = showName.text.toString()
+      updateUser.email = showEmail.text.toString()
+      updateUser.password = showPassword.text.toString()
+      if (updateUser.name.isEmpty()) {
+        toast(R.string.enter_hillfort_title)
+      } else {
+          app.users.updateUser(updateUser.copy())
+        toast("User Updated")
+      }
+    }
   }
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -69,5 +82,7 @@ class SettingsActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
     return true
 
   }
+
+
 }
 
