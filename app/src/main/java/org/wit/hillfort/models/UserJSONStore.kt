@@ -19,7 +19,12 @@ fun generateRandomUserId(): Long {
     return Random().nextLong()
 }
 
+fun generateRandomHillfortId(): Long {
+    return Random().nextLong()
+}
+
 class UserJSONStore : UserStore, AnkoLogger {
+
 
     val context: Context
     var users = ArrayList<UserModel>()
@@ -31,6 +36,7 @@ class UserJSONStore : UserStore, AnkoLogger {
         }
     }
 
+    // USER CODE
     override fun findAll(): ArrayList<UserModel> {
         return users
     }
@@ -66,8 +72,6 @@ class UserJSONStore : UserStore, AnkoLogger {
         return false
     }
 
-
-
     private fun serialize() {
         val jsonString = user_gsonBuilder.toJson(users, userlistType)
         write(context, USER_JSON_FILE, jsonString)
@@ -82,4 +86,39 @@ class UserJSONStore : UserStore, AnkoLogger {
         users.remove(user)
         serialize()
     }
+
+
+    // HILLFORT CODE
+    override fun findAllHillfort(user: UserModel): ArrayList<HillfortModel> {
+        return user.hillforts
+    }
+
+    override fun createHillfort(user: UserModel, hillfort: HillfortModel) {
+        hillfort.id = generateRandomHillfortId()
+        user.hillforts.add(hillfort)
+        serialize()
+    }
+
+    override fun updateHillfort(user: UserModel, hillfort: HillfortModel) {
+        var foundHillfort: HillfortModel? = user.hillforts.find { p -> p.id == hillfort.id }
+        if (foundHillfort != null) {
+            foundHillfort.title = hillfort.title
+            foundHillfort.description = hillfort.description
+            foundHillfort.image = hillfort.image
+            foundHillfort.visited = hillfort.visited
+            foundHillfort.date = hillfort.date
+            foundHillfort.notes = hillfort.notes
+            foundHillfort.lat = hillfort.lat
+            foundHillfort.lng = hillfort.lng
+            foundHillfort.zoom = hillfort.zoom
+            serialize()
+        }
+    }
+
+    override fun deleteHillfort(user: UserModel, hillfort: HillfortModel) {
+        user.hillforts.remove(hillfort)
+        serialize()
+    }
+
+
 }

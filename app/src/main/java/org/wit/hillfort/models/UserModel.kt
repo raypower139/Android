@@ -9,5 +9,6 @@ import kotlin.collections.ArrayList
 data class UserModel(var id: Long = 0,
                           var name: String = "",
                           var email: String = "",
-                          var password: String = "")
-                           : Parcelable
+                          var password: String = "",
+                          var hillforts: ArrayList<HillfortModel> = ArrayList()
+) : Parcelable

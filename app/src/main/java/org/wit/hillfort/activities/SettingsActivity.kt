@@ -1,15 +1,14 @@
 package org.wit.hillfort.activities
 
-import android.content.Intent
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
-import kotlinx.android.synthetic.main.activity_hillfort.*
-import kotlinx.android.synthetic.main.activity_hillfort_list.*
 import kotlinx.android.synthetic.main.activity_settings.*
 import org.jetbrains.anko.*
 import org.wit.hillfort.R
@@ -21,6 +20,8 @@ import org.wit.hillfort.models.UserModel
 class SettingsActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavigationItemSelectedListener {
 
   lateinit var app: MainApp
+
+  // LAYOUT FOR NAVIGATION DRAWER
   private val drawerLayout by lazy {
     findViewById<DrawerLayout>(R.id.drawer_layout)
   }
@@ -36,16 +37,18 @@ class SettingsActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
     setSupportActionBar(toolbarSettings)
     getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
 
-
     val navView = findViewById<NavigationView>(R.id.nav_view)
     navView.setNavigationItemSelectedListener(this)
 
+    // SET FIELD VALUES
       showName.setText(app.currentUser.name)
       showEmail.setText(app.currentUser.email)
       showPassword.setText(app.currentUser.password)
-      numberOfHillforts.setText("Number of Hillforts: " + app.hillforts.findAll().size)
-      numberOfHillfortsVisited.setText("Number of Hillforts Visited:      " + app.hillforts.findAll().size)
+      numberOfHillforts.setText("Number of Hillforts: " + app.users.findAllHillfort(app.currentUser).size)
+      numberOfHillfortsVisited.setText("Number of Hillforts Visited:      " + app.currentUser.hillforts.filter { it.visited }.size)
 
+
+    // UPDATE USER
     updateUserButton.setOnClickListener() {
       updateUser.id = app.currentUser.id
       updateUser.name = showName.text.toString()
@@ -58,6 +61,32 @@ class SettingsActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
         toast("User Updated")
       }
     }
+
+    // DELETE USER
+    deleteUserButton.setOnClickListener() {
+
+        val alertDialog = AlertDialog.Builder(this)
+          //set icon
+          .setIcon(android.R.drawable.ic_dialog_alert)
+          //set title
+          .setTitle("Are you sure you want to DELETE")
+          //set message
+          .setMessage("If yes then User will be deleted")
+          //set positive button
+          .setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, i ->
+            app.users.delete(app.currentUser)
+            toast("User Deleted")
+            startActivity<LoginActivity>()
+            finish()
+          })
+          //set negative button
+          .setNegativeButton("No", DialogInterface.OnClickListener { dialogInterface, i ->
+
+            Toast.makeText(applicationContext, "User will not be deleted", Toast.LENGTH_LONG).show()
+          })
+          .show()
+      }
+
   }
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -83,6 +112,10 @@ class SettingsActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
     }
     return true
 
+  }
+
+  fun findAllHillfort(user: UserModel): ArrayList<HillfortModel> {
+    return user.hillforts
   }
 
 

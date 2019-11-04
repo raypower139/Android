@@ -4,15 +4,11 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.system.Os.close
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
-import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_hillfort.*
-import kotlinx.android.synthetic.main.activity_hillfort_list.*
-import kotlinx.android.synthetic.main.card_hillfort.view.*
 import org.jetbrains.anko.*
 import org.wit.hillfort.R
 import org.wit.hillfort.helpers.readImage
@@ -21,18 +17,14 @@ import org.wit.hillfort.helpers.showImagePicker
 import org.wit.hillfort.main.MainApp
 import org.wit.hillfort.models.Location
 import org.wit.hillfort.models.HillfortModel
-import org.wit.hillfort.models.HillfortMemStore
-import org.wit.hillfort.models.HillfortStore
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
-import java.lang.String.format
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 class HillfortActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavigationItemSelectedListener {
-
 
     var hillfort = HillfortModel()
     lateinit var app: MainApp
@@ -41,8 +33,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
     var i = 0
     var cal = Calendar.getInstance()
 
-
-
+    // LAYOUT FOR NAVIGATION DRAWER
     private val drawerLayout by lazy {
         findViewById<DrawerLayout>(R.id.drawer_layout)
     }
@@ -60,12 +51,12 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
         val navView = findViewById<NavigationView>(R.id.nav_view)
         navView.setNavigationItemSelectedListener(this)
 
+
+        //  SET IMAGE AND CALENDER PICKER TO INVISIBLE
         hillfortImage.setVisibility(View.INVISIBLE);
         datePicker.setVisibility(View.INVISIBLE);
         dateText.setVisibility(View.INVISIBLE);
         setDate.setVisibility(View.INVISIBLE);
-
-
 
 
         app = application as MainApp
@@ -76,23 +67,16 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
             hillfortTitle.setText(hillfort.title)
             description.setText(hillfort.description)
             setDate.setText(hillfort.date)
+            latVal.setText(""+hillfort.lat)
+            longVal.setText(""+hillfort.lng)
+
             if (hillfort.visited) {
                 visited_checkbox.isChecked = true
             }
             if (hillfort.image.size != 0) {
                 hillfortImage.setVisibility(View.VISIBLE);
             }
-
             btnAdd.setText(R.string.save_hillfort)
-
-            //EARLIER ATTEMPT AT 4 IMAGES
-            //if (hillfort.image.size != 0) {
-            //chooseImage.setText(R.string.change_hillfort_image)
-            //hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image[0]))
-            //hillfortImage2.setImageBitmap(readImageFromPath(this, hillfort.image[1]))
-            //hillfortImage3.setImageBitmap(readImageFromPath(this, hillfort.image[2]))
-            //hillfortImage4.setImageBitmap(readImageFromPath(this, hillfort.image[3]))
-            //}
         }
 
         visited_checkbox.setOnClickListener(View.OnClickListener {
@@ -116,14 +100,15 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
             hillfort.description = description.text.toString()
             hillfort.visited = hillfort.visited
             hillfort.date = setDate.text.toString()
+            hillfort.notes = hillfort.notes
 
             if (hillfort.title.isEmpty()) {
                 toast(R.string.enter_hillfort_title)
             } else {
                 if (edit) {
-                    app.hillforts.updateHillfort(hillfort.copy())
+                    app.users.updateHillfort(app.currentUser, hillfort.copy())
                 } else {
-                    app.hillforts.create(hillfort.copy())
+                    app.users.createHillfort(app.currentUser, hillfort.copy())
                 }
             }
             info("add Button Pressed: $hillfortTitle")
@@ -158,6 +143,16 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
 
         })
 
+        addNote.setOnClickListener {
+            if (hillfort.notes.size < 4) {
+                hillfort.notes.add(notes.text.toString())
+                Toast.makeText(this, "Note Saved!", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
+
+
         // HANDLE IMAGES
         // Add Image Button Listener
         chooseImage.setOnClickListener {
@@ -187,6 +182,8 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
                     intentFor<MapActivity>().putExtra("location", location),
                     LOCATION_REQUEST
                 )
+                latVal.setText(""+hillfort.lat)
+                longVal.setText(""+hillfort.lng)
             }
         }
 
@@ -196,17 +193,18 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
             return super.onCreateOptionsMenu(menu)
         }
 
-        override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
 
-            when (item?.itemId) {
+            when (item.itemId) {
                 R.id.item_cancel -> {
                     finish()
                 }
                 R.id.item_delete -> {
-                    app.hillforts.delete(hillfort)
+                    app.users.deleteHillfort(app.currentUser,hillfort)
                     finish()
                 }
+                R.id.action_add -> startActivity<HillfortActivity>()
                 R.id.item_settings -> startActivity<SettingsActivity>()
                 R.id.action_logout -> startActivity<LoginActivity>()
                 R.id.action_close -> finishAffinity()

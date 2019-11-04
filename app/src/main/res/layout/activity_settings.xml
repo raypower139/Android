@@ -102,19 +102,33 @@
 
         <TextView
             android:id="@+id/numberOfHillforts"
-            android:layout_width="162dp"
+            android:layout_width="match_parent"
             android:layout_height="31dp"
             android:layout_marginStart="60dp"
             android:layout_marginTop="20dp"
-            android:text="Number of Hillforts" />
+            android:text="Number of Hillforts"
+            android:textFontWeight="500"
+            android:textSize="20dp"
+            />
 
         <TextView
             android:id="@+id/numberOfHillfortsVisited"
-            android:layout_width="162dp"
+            android:layout_width="match_parent"
             android:layout_height="31dp"
             android:layout_marginStart="60dp"
             android:layout_marginTop="20dp"
-            android:text="Number of Hillforts Visited" />
+            android:text="Number of Hillforts Visited"
+            android:textFontWeight="500"
+            android:textSize="20dp"
+            />
+
+        <Button
+            android:id="@+id/deleteUserButton"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="60dp"
+            android:text="Delete User" />
 
       </LinearLayout>
 

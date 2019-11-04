@@ -13,6 +13,7 @@ data class HillfortModel(var id: Long = 0,
                          var image: ArrayList<String> = ArrayList(),
                          var visited: Boolean = false,
                          var date: String = "",
+                         var notes: ArrayList<String> = ArrayList(),
                          var lat : Double = 0.0,
                          var lng: Double = 0.0,
                          var zoom: Float = 0f

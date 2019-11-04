@@ -40,7 +40,7 @@ class HillfortListActivity : AppCompatActivity(), HillfortListener, NavigationVi
     getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
     val layoutManager = LinearLayoutManager(this)
     recyclerView.layoutManager = layoutManager
-    recyclerView.adapter = HillfortAdapter(app.hillforts.findAll(), this)
+    recyclerView.adapter = HillfortAdapter(app.users.findAllHillfort(app.currentUser), this)
 
     val navView = findViewById<NavigationView>(R.id.nav_view)
     navView.setNavigationItemSelectedListener(this)

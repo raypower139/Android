@@ -150,6 +150,34 @@
 
       </LinearLayout>
 
+        <EditText
+            android:id="@+id/notes"
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            android:autofillHints="Name"
+            android:background="@color/colorPrimary"
+            android:hint="Notes"
+            android:maxLength="100"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
+            android:padding="1dp"
+            />
+
+        <Button
+            android:id="@+id/addNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@color/colorAccent"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:text="Add Note"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"/>
+
+
         <Button
 
             android:id="@+id/chooseImage"
@@ -191,12 +219,83 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:background="@color/colorAccent"
-            android:paddingBottom="8dp"
             android:paddingTop="8dp"
             android:stateListAnimator="@null"
             android:text="@string/button_location"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"/>
+
+        <LinearLayout
+            android:layout_width="383dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+          <TextView
+              android:id="@+id/latText"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="80dp"
+              android:layout_marginTop="10dp"
+              android:fontFamily="sans-serif-medium"
+              android:text="Lat: "
+              android:textFontWeight="800"
+              android:textSize="18sp"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent" />
+
+          <TextView
+              android:id="@+id/latVal"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="20dp"
+              android:layout_marginTop="10dp"
+              android:fontFamily="sans-serif-medium"
+              android:text="...."
+              android:textFontWeight="800"
+              android:textSize="18sp"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent" />
+
+        </LinearLayout>
+
+          <LinearLayout
+              android:layout_width="383dp"
+              android:layout_height="wrap_content"
+              android:layout_alignParentBottom="true"
+              android:orientation="horizontal">
+
+          <TextView
+              android:id="@+id/longText"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="80dp"
+              android:layout_marginTop="10dp"
+              android:fontFamily="sans-serif-medium"
+              android:text="Long: "
+              android:textFontWeight="800"
+              android:textSize="18sp"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent" />
+
+          <TextView
+              android:id="@+id/longVal"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="20dp"
+              android:layout_marginTop="10dp"
+              android:fontFamily="sans-serif-medium"
+              android:text="...."
+              android:textFontWeight="800"
+              android:textSize="18sp"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent" />
+
+          </LinearLayout>
+
+
+
+
 
         <Button
           android:id="@+id/btnAdd"
