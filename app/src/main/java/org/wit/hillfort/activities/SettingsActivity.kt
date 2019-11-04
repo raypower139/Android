@@ -43,6 +43,8 @@ class SettingsActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
       showName.setText(app.currentUser.name)
       showEmail.setText(app.currentUser.email)
       showPassword.setText(app.currentUser.password)
+      numberOfHillforts.setText("Number of Hillforts: " + app.hillforts.findAll().size)
+      numberOfHillfortsVisited.setText("Number of Hillforts Visited:      " + app.hillforts.findAll().size)
 
     updateUserButton.setOnClickListener() {
       updateUser.id = app.currentUser.id
@@ -82,6 +84,8 @@ class SettingsActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
     return true
 
   }
+
+
 
 
 }

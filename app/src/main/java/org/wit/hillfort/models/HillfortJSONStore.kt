@@ -36,6 +36,8 @@ class HillfortJSONStore : HillfortStore, AnkoLogger {
         return hillforts
     }
 
+
+
     override fun create(hillfort: HillfortModel) {
         hillfort.id = generateRandomId()
         hillforts.add(hillfort)
@@ -52,6 +54,7 @@ class HillfortJSONStore : HillfortStore, AnkoLogger {
             foundHillfort.description = hillfort.description
             foundHillfort.image = hillfort.image
             foundHillfort.visited = hillfort.visited
+            foundHillfort.date = hillfort.date
             foundHillfort.lat = hillfort.lat
             foundHillfort.lng = hillfort.lng
             foundHillfort.zoom = hillfort.zoom

@@ -96,9 +96,26 @@
             android:id="@+id/updateUserButton"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="Update User"
             android:layout_marginTop="20dp"
-            />
+            android:layout_marginStart="60dp"
+            android:text="Update User" />
+
+        <TextView
+            android:id="@+id/numberOfHillforts"
+            android:layout_width="162dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="20dp"
+            android:text="Number of Hillforts" />
+
+        <TextView
+            android:id="@+id/numberOfHillfortsVisited"
+            android:layout_width="162dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="20dp"
+            android:text="Number of Hillforts Visited" />
+
       </LinearLayout>
 
     </ScrollView>
