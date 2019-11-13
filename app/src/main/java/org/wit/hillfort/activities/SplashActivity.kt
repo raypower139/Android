@@ -11,7 +11,7 @@ import org.wit.hillfort.activities.HillfortListActivity
 class SplashActivity : AppCompatActivity() {
 
     /** Duration of wait  */
-    private val SPLASH_DISPLAY_LENGTH = 3000  //splash screen will be shown for 2 seconds
+    private val SPLASH_DISPLAY_LENGTH = 4000  //splash screen will be shown for 4 seconds
 
     /** Called when the activity is first created.  */
     public override fun onCreate(icicle: Bundle?) {
@@ -19,7 +19,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         Handler().postDelayed({
-            val mainIntent = Intent(this@SplashActivity, HillfortListActivity::class.java)
+            val mainIntent = Intent(this@SplashActivity, LoginActivity::class.java)
             startActivity(mainIntent)
             finish()
         }, SPLASH_DISPLAY_LENGTH.toLong())

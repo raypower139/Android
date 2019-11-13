@@ -20,6 +20,7 @@ import org.wit.hillfort.models.HillfortModel
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.activity_hillfort_list.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -32,6 +33,8 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
     val LOCATION_REQUEST = 2
     var i = 0
     var cal = Calendar.getInstance()
+    var edit = false
+
 
     // LAYOUT FOR NAVIGATION DRAWER
     private val drawerLayout by lazy {
@@ -60,9 +63,10 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
 
 
         app = application as MainApp
-        var edit = false
+
         if (intent.hasExtra("hillfort_edit")) {
             edit = true
+
             hillfort = intent.extras?.getParcelable<HillfortModel>("hillfort_edit")!!
             hillfortTitle.setText(hillfort.title)
             description.setText(hillfort.description)
@@ -106,6 +110,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
                 toast(R.string.enter_hillfort_title)
             } else {
                 if (edit) {
+
                     app.users.updateHillfort(app.currentUser, hillfort.copy())
                 } else {
                     app.users.createHillfort(app.currentUser, hillfort.copy())
@@ -190,6 +195,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
 
         override fun onCreateOptionsMenu(menu: Menu?): Boolean {
             menuInflater.inflate(R.menu.menu_hillfort, menu)
+            if (edit && menu != null) menu.getItem(0).setVisible(true)
             return super.onCreateOptionsMenu(menu)
         }
 
