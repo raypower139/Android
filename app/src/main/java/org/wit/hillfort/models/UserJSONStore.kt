@@ -111,8 +111,8 @@ class UserJSONStore : UserStore, AnkoLogger {
             foundHillfort.lat = hillfort.lat
             foundHillfort.lng = hillfort.lng
             foundHillfort.zoom = hillfort.zoom
-            serialize()
         }
+        serialize()
     }
 
     override fun deleteHillfort(user: UserModel, hillfort: HillfortModel) {

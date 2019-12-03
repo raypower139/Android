@@ -62,6 +62,7 @@ val toggle = ActionBarDrawerToggle(
   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
     when (item?.itemId) {
       R.id.item_add -> startActivity<HillfortActivity>()
+      R.id.item_map -> startActivity<HillfortMapsActivity>()
       R.id.item_settings -> startActivity<SettingsActivity>()
       R.id.item_logout -> finish()
       R.id.action_close -> finishAffinity()
