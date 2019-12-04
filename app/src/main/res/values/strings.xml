@@ -33,4 +33,9 @@
     <string name="close_nav_drawer">Close Navigation Drawer</string>
     <string name="title_activity_hillfort_maps">Map of all Hillforts</string>
 
+
+    <string name="hillfort_image_placeholder">Hillfort Imagee</string>
+    <string name="hillfort_title_placeholder">Hillfort Title</string>
+    <string name="hillfort_description_placeholder">Hillfort Description</string>
+
 </resources>

@@ -5,14 +5,16 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import org.wit.hillfort.R
 import kotlinx.android.synthetic.main.activity_hillfort_maps.*
 import kotlinx.android.synthetic.main.content_hillfort_maps.*
+import org.wit.hillfort.helpers.readImageFromPath
 import org.wit.hillfort.main.MainApp
 
 
-class HillfortMapsActivity : AppCompatActivity() {
+class HillfortMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
 
     lateinit var map: GoogleMap
     lateinit var app: MainApp
@@ -33,6 +35,16 @@ class HillfortMapsActivity : AppCompatActivity() {
             configureMap()
         }
 
+    }
+
+    override fun onMarkerClick(marker: Marker): Boolean {
+        val tag = marker.tag as Long
+        var Hillforts = app.users.findAllHillfort(app.currentUser)
+        val currentHill = Hillforts.find{ it.title == marker.title }
+        currentTitle.text = currentHill!!.title
+        currentDescription.text = currentHill!!.description
+        currentImage.setImageBitmap(readImageFromPath(this, currentHill!!.image[0]))
+        return true
     }
 
     override fun onDestroy() {
@@ -62,7 +74,7 @@ class HillfortMapsActivity : AppCompatActivity() {
 
     fun configureMap() {
         map.uiSettings.setZoomControlsEnabled(true)
-
+        map.setOnMarkerClickListener(this)
         app.users.findAllHillfort(app.currentUser).forEach {
             val loc = LatLng(it.lat, it.lng)
             val options = MarkerOptions().title(it.title).position(loc)

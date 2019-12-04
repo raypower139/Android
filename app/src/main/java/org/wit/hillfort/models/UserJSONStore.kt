@@ -8,12 +8,15 @@ import org.jetbrains.anko.AnkoLogger
 import org.wit.hillfort.helpers.exists
 import org.wit.hillfort.helpers.read
 import org.wit.hillfort.helpers.write
+import org.wit.hillfort.main.MainApp
 import java.util.*
 import kotlin.collections.ArrayList
 
 val USER_JSON_FILE = "users.json"
 val user_gsonBuilder = GsonBuilder().setPrettyPrinting().create()
 val userlistType = object : TypeToken<java.util.ArrayList<UserModel>>() {}.type
+lateinit var app: MainApp
+
 
 fun generateRandomUserId(): Long {
     return Random().nextLong()
@@ -40,6 +43,8 @@ class UserJSONStore : UserStore, AnkoLogger {
     override fun findAll(): ArrayList<UserModel> {
         return users
     }
+
+
 
     override fun findByEmail(email: String): UserModel? {
         return users.find { user -> user.email == email }
@@ -98,6 +103,8 @@ class UserJSONStore : UserStore, AnkoLogger {
         user.hillforts.add(hillfort)
         serialize()
     }
+
+
 
     override fun updateHillfort(user: UserModel, hillfort: HillfortModel) {
         var foundHillfort: HillfortModel? = user.hillforts.find { p -> p.id == hillfort.id }
