@@ -61,7 +61,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
 
 
         //  SET IMAGE AND CALENDER PICKER TO INVISIBLE
-        hillfortImage.setVisibility(View.INVISIBLE);
+        hillfortImage.setVisibility(View.VISIBLE);
         datePicker.setVisibility(View.INVISIBLE);
         dateText.setVisibility(View.INVISIBLE);
         setDate.setVisibility(View.INVISIBLE);
@@ -135,6 +135,8 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
             chooseImage.setText(R.string.change_hillfort_image)
         }
         btnAdd.setText(R.string.save_hillfort)
+         latVal.setText(""+hillfort.lat)
+         longVal.setText(""+hillfort.lng)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

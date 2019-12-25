@@ -47,7 +47,9 @@ class HillfortPresenter(val view: HillfortActivity) {
     }
 
     fun doSelectImage() {
-        showImagePicker(view, IMAGE_REQUEST)
+        view?.let {
+            showImagePicker(view!!, IMAGE_REQUEST)
+        }
     }
 
     fun doSetLocation() {
@@ -56,14 +58,18 @@ class HillfortPresenter(val view: HillfortActivity) {
             location.lng = hillfort.lng
             location.zoom = hillfort.zoom
         }
+
         view.startActivityForResult(view.intentFor<MapActivity>().putExtra("location", location), LOCATION_REQUEST)
+
     }
+
+
 
     fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         when (requestCode) {
             IMAGE_REQUEST -> {
                 hillfort.image = data.data.toString()
-                view.showHillfort(hillfort)
+                view?.showHillfort(hillfort)
             }
             LOCATION_REQUEST -> {
                 location = data.extras?.getParcelable<Location>("location")!!
@@ -72,5 +78,6 @@ class HillfortPresenter(val view: HillfortActivity) {
                 hillfort.zoom = location.zoom
             }
         }
+
     }
 }

@@ -46,6 +46,7 @@ class HillfortAdapter constructor(private var hillforts: List<HillfortModel>,
             itemView.imageIcon.visibility = View.VISIBLE
             itemView.hillfortTitle.text = hillfort.title
             itemView.description.text = hillfort.description
+            itemView.imageIcon.setImageBitmap(readImageFromPath(itemView.context, hillfort.image))
             //itemView.notes.text = hillfort.notes
             itemView.visited_checkbox_card.isChecked = hillfort.visited
             if (hillfort.visited){
