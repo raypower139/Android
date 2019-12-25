@@ -14,23 +14,27 @@ import org.wit.hillfort.R
 import org.wit.hillfort.helpers.readImage
 import org.wit.hillfort.helpers.readImageFromPath
 import org.wit.hillfort.helpers.showImagePicker
-import org.wit.hillfort.main.MainApp
+
 import org.wit.hillfort.models.Location
 import org.wit.hillfort.models.HillfortModel
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.internal.NavigationMenuPresenter
 import com.google.android.material.navigation.NavigationView
-import kotlinx.android.synthetic.main.activity_hillfort_list.*
+
 import java.text.SimpleDateFormat
 import java.util.*
+
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.toast
+
 
 
 class HillfortActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavigationItemSelectedListener {
 
+    lateinit var presenter: HillfortPresenter
     var hillfort = HillfortModel()
-    lateinit var app: MainApp
-    val IMAGE_REQUEST = 1
-    val LOCATION_REQUEST = 2
+
     var i = 0
     var cal = Calendar.getInstance()
     var edit = false
@@ -46,10 +50,11 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hillfort_nav)
         toolbarAdd.title = title
-
         setSupportActionBar(findViewById(R.id.toolbarAdd))
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
         info("Hillfort Activity started..")
+
+        presenter = HillfortPresenter(this)
 
         val navView = findViewById<NavigationView>(R.id.nav_view)
         navView.setNavigationItemSelectedListener(this)
@@ -61,27 +66,17 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
         dateText.setVisibility(View.INVISIBLE);
         setDate.setVisibility(View.INVISIBLE);
 
-
-        app = application as MainApp
-
-        if (intent.hasExtra("hillfort_edit")) {
-            edit = true
-
-            hillfort = intent.extras?.getParcelable<HillfortModel>("hillfort_edit")!!
-            hillfortTitle.setText(hillfort.title)
-            description.setText(hillfort.description)
-            setDate.setText(hillfort.date)
-            latVal.setText(""+hillfort.lat)
-            longVal.setText(""+hillfort.lng)
-
-            if (hillfort.visited) {
-                visited_checkbox.isChecked = true
+        btnAdd.setOnClickListener {
+            if (hillfortTitle.text.toString().isEmpty()) {
+                toast(R.string.enter_hillfort_title)
+            } else {
+                presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString())
             }
-            if (hillfort.image.size != 0) {
-                hillfortImage.setVisibility(View.VISIBLE);
-            }
-            btnAdd.setText(R.string.save_hillfort)
         }
+
+        chooseImage.setOnClickListener { presenter.doSelectImage() }
+
+        hillfortLocation.setOnClickListener { presenter.doSetLocation() }
 
         visited_checkbox.setOnClickListener(View.OnClickListener {
             if (visited_checkbox.isChecked) {
@@ -96,30 +91,6 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
                 setDate.setVisibility(View.INVISIBLE); //Set to invisible
             }
         })
-
-
-
-        btnAdd.setOnClickListener() {
-            hillfort.title = hillfortTitle.text.toString()
-            hillfort.description = description.text.toString()
-            hillfort.visited = hillfort.visited
-            hillfort.date = setDate.text.toString()
-            hillfort.notes = hillfort.notes
-
-            if (hillfort.title.isEmpty()) {
-                toast(R.string.enter_hillfort_title)
-            } else {
-                if (edit) {
-
-                    app.users.updateHillfort(app.currentUser, hillfort.copy())
-                } else {
-                    app.users.createHillfort(app.currentUser, hillfort.copy())
-                }
-            }
-            info("add Button Pressed: $hillfortTitle")
-            setResult(AppCompatActivity.RESULT_OK)
-            finish()
-        }
 
         // create an OnDateSetListener
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {
@@ -148,113 +119,76 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
 
         })
 
-        addNote.setOnClickListener {
-            if (hillfort.notes.size < 4) {
-                hillfort.notes.add(notes.text.toString())
-                Toast.makeText(this, "Note Saved!", Toast.LENGTH_SHORT).show()
-            }
+
+
+
+
+
+    }
+
+     fun showHillfort(hillfort: HillfortModel) {
+        hillfortTitle.setText(hillfort.title)
+        description.setText(hillfort.description)
+        notes.setText(hillfort.notes)
+        hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image))
+        if (hillfort.image != null) {
+            chooseImage.setText(R.string.change_hillfort_image)
         }
+        btnAdd.setText(R.string.save_hillfort)
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_hillfort, menu)
+        if (presenter.edit) menu.getItem(0).setVisible(true)
+        return super.onCreateOptionsMenu(menu)
+    }
 
-
-
-        // HANDLE IMAGES
-        // Add Image Button Listener
-        chooseImage.setOnClickListener {
-                info("Select image")
-                showImagePicker(this, IMAGE_REQUEST)
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.item_delete -> {
+                presenter.doDelete()
             }
-        // Rotate through loaded images by clicking on the image
-            hillfortImage.setOnClickListener {
-                if (hillfort.image.size != 0) {
-                    i += 1
-                    if (i == hillfort.image.size) {
-                        i = 0
-                    }
-                    hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image[i]))
-            }
-           }
-
-
-            hillfortLocation.setOnClickListener {
-                val location = Location(52.245696, -7.139102, 15f)
-                if (hillfort.zoom != 0f) {
-                    location.lat = hillfort.lat
-                    location.lng = hillfort.lng
-                    location.zoom = hillfort.zoom
-                }
-                startActivityForResult(
-                    intentFor<MapActivity>().putExtra("location", location),
-                    LOCATION_REQUEST
-                )
-                latVal.setText(""+hillfort.lat)
-                longVal.setText(""+hillfort.lng)
-            }
-        }
-
-
-        override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-            menuInflater.inflate(R.menu.menu_hillfort, menu)
-            if (edit && menu != null) menu.getItem(0).setVisible(true)
-            return super.onCreateOptionsMenu(menu)
-        }
-
-        override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-
-            when (item.itemId) {
-                R.id.item_cancel -> {
-                    finish()
-                }
-                R.id.item_delete -> {
-                    app.users.deleteHillfort(app.currentUser,hillfort)
-                    finish()
-                }
-                R.id.action_add -> startActivity<HillfortActivity>()
-                R.id.item_settings -> startActivity<SettingsActivity>()
-                R.id.action_logout -> startActivity<LoginActivity>()
-                R.id.action_close -> finishAffinity()
-            }
-            return super.onOptionsItemSelected(item)
-        }
-
-        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-            super.onActivityResult(requestCode, resultCode, data)
-            when (requestCode) {
-                IMAGE_REQUEST -> {
-                    // Restrict number of images to 4 Max
-                    if (data != null && hillfort.image.size < 4) {
-                        hillfort.image.add(data.getData().toString())
-                        hillfortImage.setImageBitmap(readImage(this, resultCode, data))
-                        Toast.makeText(this, "Image Saved!", Toast.LENGTH_SHORT).show()
-                        chooseImage.setText(R.string.change_hillfort_image)
-                    }
-
-                }
-                LOCATION_REQUEST -> {
-                    if (data != null) {
-                        val location = data.extras?.getParcelable<Location>("location")!!
-                        hillfort.lat = location.lat
-                        hillfort.lng = location.lng
-                        hillfort.zoom = location.zoom
-                    }
-                }
+            R.id.item_cancel -> {
+                presenter.doCancel()
             }
 
         }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data != null) {
+            presenter.doActivityResult(requestCode, resultCode, data)
+        }
+    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         drawerLayout.closeDrawer(GravityCompat.START)
         when (item.itemId) {
             R.id.action_add -> startActivity<HillfortActivity>()
-            R.id.action_settings -> startActivity<SettingsActivity>()
-            R.id.action_logout -> startActivity<LoginActivity>()
+
             R.id.action_close -> finishAffinity()
         }
         return true
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

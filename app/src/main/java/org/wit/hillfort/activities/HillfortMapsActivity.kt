@@ -39,11 +39,11 @@ class HillfortMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListene
 
     override fun onMarkerClick(marker: Marker): Boolean {
         val tag = marker.tag as Long
-        var Hillforts = app.users.findAllHillfort(app.currentUser)
+        var Hillforts = app.hillforts.findAll()
         val currentHill = Hillforts.find{ it.title == marker.title }
         currentTitle.text = currentHill!!.title
         currentDescription.text = currentHill!!.description
-        currentImage.setImageBitmap(readImageFromPath(this, currentHill!!.image[0]))
+        currentImage.setImageBitmap(readImageFromPath(this, currentHill!!.image))
         return true
     }
 
@@ -75,7 +75,7 @@ class HillfortMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListene
     fun configureMap() {
         map.uiSettings.setZoomControlsEnabled(true)
         map.setOnMarkerClickListener(this)
-        app.users.findAllHillfort(app.currentUser).forEach {
+        app.hillforts.findAll().forEach {
             val loc = LatLng(it.lat, it.lng)
             val options = MarkerOptions().title(it.title).position(loc)
             map.addMarker(options).tag = it.id

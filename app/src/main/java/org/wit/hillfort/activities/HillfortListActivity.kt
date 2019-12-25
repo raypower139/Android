@@ -34,13 +34,13 @@ class HillfortListActivity : AppCompatActivity(), HillfortListener, NavigationVi
     app = application as MainApp
 
     toolbar.title = title
-    toolbar.setSubtitle("${app.currentUser.name}")
+    //toolbar.setSubtitle("${app.currentUser.name}")
     setSupportActionBar(toolbar)
 
     getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
     val layoutManager = LinearLayoutManager(this)
     recyclerView.layoutManager = layoutManager
-    recyclerView.adapter = HillfortAdapter(app.users.findAllHillfort(app.currentUser), this)
+    recyclerView.adapter = HillfortAdapter(app.hillforts.findAll(), this)
 
     val navView = findViewById<NavigationView>(R.id.nav_view)
     navView.setNavigationItemSelectedListener(this)
@@ -63,8 +63,8 @@ val toggle = ActionBarDrawerToggle(
     when (item?.itemId) {
       R.id.item_add -> startActivity<HillfortActivity>()
       R.id.item_map -> startActivity<HillfortMapsActivity>()
-      R.id.item_settings -> startActivity<SettingsActivity>()
-      R.id.item_logout -> finish()
+
+
       R.id.action_close -> finishAffinity()
     }
     return super.onOptionsItemSelected(item)
@@ -83,8 +83,8 @@ val toggle = ActionBarDrawerToggle(
     drawerLayout.closeDrawer(GravityCompat.START)
     when (item.itemId) {
       R.id.action_add -> startActivity<HillfortActivity>()
-      R.id.action_settings -> startActivity<SettingsActivity>()
-      R.id.action_logout -> finish()
+
+
       R.id.action_close -> finishAffinity()
     }
     return true

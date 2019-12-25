@@ -12,9 +12,9 @@ import org.wit.hillfort.main.MainApp
 import java.util.*
 import kotlin.collections.ArrayList
 
-val USER_JSON_FILE = "users.json"
-val user_gsonBuilder = GsonBuilder().setPrettyPrinting().create()
-val userlistType = object : TypeToken<java.util.ArrayList<UserModel>>() {}.type
+val JSON_FILE = "hillfort.json"
+val gsonBuilder = GsonBuilder().setPrettyPrinting().create()
+val listType = object : TypeToken<java.util.ArrayList<HillfortModel>>() {}.type
 lateinit var app: MainApp
 
 
@@ -22,92 +22,58 @@ fun generateRandomUserId(): Long {
     return Random().nextLong()
 }
 
-fun generateRandomHillfortId(): Long {
+fun generateRandomId(): Long {
     return Random().nextLong()
 }
 
-class UserJSONStore : UserStore, AnkoLogger {
+class HillfortJSONStore : HillfortStore, AnkoLogger {
 
 
     val context: Context
-    var users = ArrayList<UserModel>()
+    var hillforts = mutableListOf<HillfortModel>()
 
     constructor (context: Context) {
         this.context = context
-        if (exists(context, USER_JSON_FILE)) {
+        if (exists(context, JSON_FILE)) {
             deserialize()
         }
     }
 
     // USER CODE
-    override fun findAll(): ArrayList<UserModel> {
-        return users
+    override fun findAll(): MutableList<HillfortModel> {
+        return hillforts
     }
 
 
-
-    override fun findByEmail(email: String): UserModel? {
-        return users.find { user -> user.email == email }
-    }
-
-    override fun create(user: UserModel) {
-        user.id = generateRandomUserId()
-        users.add(user)
+    override fun create(hillfort: HillfortModel) {
+        hillfort.id = generateRandomId()
+        hillforts.add(hillfort)
         serialize()
     }
 
-    override fun updateUser(user: UserModel) {
-        var foundUser: UserModel? = users.find { p -> p.id == user.id }
-        if (foundUser != null) {
-            foundUser.name = user.name
-            foundUser.email = user.email
-            foundUser.password = user.password
-            serialize()
-        }
+    override fun delete(hillfort: HillfortModel) {
+        hillforts.remove(hillfort)
+        serialize()
     }
 
-    override fun login(email: String, password: String): Boolean {
-        val user = findByEmail(email)
-
-        if (user != null){
-            if (user.password == password){
-                return true
-            }
-        }
-        return false
+    override fun findById(id:Long) : HillfortModel? {
+        val foundHillfort: HillfortModel? = hillforts.find { it.id == id }
+        return foundHillfort
     }
 
     private fun serialize() {
-        val jsonString = user_gsonBuilder.toJson(users, userlistType)
-        write(context, USER_JSON_FILE, jsonString)
+        val jsonString = gsonBuilder.toJson(hillforts, listType)
+        write(context, JSON_FILE, jsonString)
     }
 
     private fun deserialize() {
-        val jsonString = read(context, USER_JSON_FILE)
-        users = Gson().fromJson(jsonString, userlistType)
+        val jsonString = read(context, JSON_FILE)
+        hillforts = Gson().fromJson(jsonString, listType)
     }
 
-    override fun delete(user: UserModel) {
-        users.remove(user)
-        serialize()
-    }
-
-
-    // HILLFORT CODE
-    override fun findAllHillfort(user: UserModel): ArrayList<HillfortModel> {
-        return user.hillforts
-    }
-
-    override fun createHillfort(user: UserModel, hillfort: HillfortModel) {
-        hillfort.id = generateRandomHillfortId()
-        user.hillforts.add(hillfort)
-        serialize()
-    }
-
-
-
-    override fun updateHillfort(user: UserModel, hillfort: HillfortModel) {
-        var foundHillfort: HillfortModel? = user.hillforts.find { p -> p.id == hillfort.id }
+    override fun update(hillfort: HillfortModel) {
+        val hillfortsList = findAll() as java.util.ArrayList<HillfortModel>
+        var foundHillfort: HillfortModel? = hillfortsList.find { p -> p.id == hillfort.id }
         if (foundHillfort != null) {
             foundHillfort.title = hillfort.title
             foundHillfort.description = hillfort.description
@@ -122,10 +88,7 @@ class UserJSONStore : UserStore, AnkoLogger {
         serialize()
     }
 
-    override fun deleteHillfort(user: UserModel, hillfort: HillfortModel) {
-        user.hillforts.remove(hillfort)
-        serialize()
-    }
+
 
 
 }
