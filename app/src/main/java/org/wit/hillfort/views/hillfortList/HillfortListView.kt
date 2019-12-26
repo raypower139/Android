@@ -1,6 +1,5 @@
-package org.wit.hillfort.activities.hillfortList
+package org.wit.hillfort.views.hillfortList
 
-import android.content.ClipData
 import android.content.Intent
 import android.os.Bundle
 import android.view.*

@@ -1,11 +1,11 @@
-package org.wit.hillfort.activities.hillfortList
+package org.wit.hillfort.views.hillfortList
 
 
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import org.wit.hillfort.activities.HillfortMapsActivity
-import org.wit.hillfort.activities.hillfort.HillfortView
+import org.wit.hillfort.views.hillfort.HillfortView
 
 
 import org.wit.hillfort.main.MainApp

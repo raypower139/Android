@@ -22,20 +22,20 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".activities.EditLocationActivity"
+            android:name="org.wit.hillfort.views.editLocation.EditLocationView"
             android:label="@string/title_activity_maps" />
 
 
         <activity
-            android:name=".activities.hillfort.HillfortView"
-            android:parentActivityName=".activities.hillfortList.HillfortListView">
+            android:name="org.wit.hillfort.views.hillfort.HillfortView"
+            android:parentActivityName="org.wit.hillfort.views.hillfortList.HillfortListView">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.hillfortList.HillfortListView" />
+                android:value="org.wit.hillfort.views.hillfortList.HillfortListView" />
         </activity>
         <activity
-            android:name=".activities.hillfortList.HillfortListView"
-            android:parentActivityName=".activities.hillfort.HillfortView">
+            android:name="org.wit.hillfort.views.hillfortList.HillfortListView"
+            android:parentActivityName="org.wit.hillfort.views.hillfort.HillfortView">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

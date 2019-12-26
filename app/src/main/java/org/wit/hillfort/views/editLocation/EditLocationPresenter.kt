@@ -1,20 +1,15 @@
-package org.wit.hillfort.activities.maps
+package org.wit.hillfort.views.editLocation
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import org.wit.hillfort.R
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import org.wit.hillfort.models.Location
 
-class MapPresenter(val view: MapActivity) {
+class EditLocationPresenter(val view: EditLocationView) {
 
     var location = Location()
 
@@ -25,7 +20,7 @@ class MapPresenter(val view: MapActivity) {
     fun initMap(map: GoogleMap) {
         val loc = LatLng(location.lat, location.lng)
         val options = MarkerOptions()
-            .title("Placemark")
+            .title("Hillfort")
             .snippet("GPS : " + loc.toString())
             .draggable(true)
             .position(loc)

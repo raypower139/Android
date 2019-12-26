@@ -1,4 +1,4 @@
-package org.wit.hillfort.activities.hillfort
+package org.wit.hillfort.views.hillfort
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -17,7 +17,6 @@ import org.wit.hillfort.models.HillfortModel
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
-import kotlinx.android.synthetic.main.activity_hillfort_list.*
 
 import java.text.SimpleDateFormat
 import java.util.*
@@ -66,7 +65,7 @@ class HillfortView : AppCompatActivity(), AnkoLogger, NavigationView.OnNavigatio
             if (hillfortTitle.text.toString().isEmpty()) {
                 toast(R.string.enter_hillfort_title)
             } else {
-                presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString(), visited_checkbox.isChecked, setDate.text.toString()  )
+                presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString(), visited_checkbox.isChecked, setDate.text.toString(), notes.text.toString()  )
             }
         }
 

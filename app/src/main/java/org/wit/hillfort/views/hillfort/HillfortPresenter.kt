@@ -1,8 +1,8 @@
-package org.wit.hillfort.activities.hillfort
+package org.wit.hillfort.views.hillfort
 
 import android.content.Intent
 import org.jetbrains.anko.intentFor
-import org.wit.hillfort.activities.EditLocationActivity
+import org.wit.hillfort.views.editLocation.EditLocationView
 import org.wit.hillfort.helpers.showImagePicker
 import org.wit.hillfort.main.MainApp
 import org.wit.hillfort.models.Location
@@ -32,11 +32,12 @@ class HillfortPresenter(val view: HillfortView) {
 
     }
 
-    fun doAddOrSave(title: String, description: String, visited: Boolean, date: String) {
+    fun doAddOrSave(title: String, description: String, visited: Boolean, date: String, notes: String) {
         hillfort.title = title
         hillfort.description = description
         hillfort.visited = visited
         hillfort.date = date
+        hillfort.notes = notes
         if (edit) {
             app.hillforts.update(hillfort)
         } else {
@@ -67,7 +68,7 @@ class HillfortPresenter(val view: HillfortView) {
             location.zoom = hillfort.zoom
         }
 
-        view.startActivityForResult(view.intentFor<EditLocationActivity>().putExtra("location", location), LOCATION_REQUEST)
+        view.startActivityForResult(view.intentFor<EditLocationView>().putExtra("location", location), LOCATION_REQUEST)
 
     }
 
