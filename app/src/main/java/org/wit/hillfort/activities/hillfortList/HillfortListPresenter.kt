@@ -26,7 +26,7 @@ class HillfortListPresenter (val view: HillfortListView) {
     }
 
     fun doEditHillfort(hillfort: HillfortModel) {
-        view.startActivityForResult(view.intentFor<HillfortView>().putExtra("placemark_edit", hillfort), 0)
+        view.startActivityForResult(view.intentFor<HillfortView>().putExtra("hillfort_edit", hillfort), 0)
     }
 
     fun doShowHillfortsMap() {

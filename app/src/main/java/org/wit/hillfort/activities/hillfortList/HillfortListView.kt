@@ -52,7 +52,7 @@ class HillfortListView : AppCompatActivity(),
     }
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-    menuInflater.inflate(R.menu.nav_main, menu)
+    menuInflater.inflate(R.menu.menu_list, menu)
     return super.onCreateOptionsMenu(menu)
   }
 
