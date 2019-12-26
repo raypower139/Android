@@ -1,5 +1,6 @@
-package org.wit.hillfort.activities
+package org.wit.hillfort.activities.hillfortList
 
+import android.content.ClipData
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
@@ -10,16 +11,16 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_hillfort_list.*
-import org.jetbrains.anko.intentFor
-import org.jetbrains.anko.startActivity
+
 import org.wit.hillfort.R
-import org.wit.hillfort.activities.hillfort.HillfortActivity
-import org.wit.hillfort.main.MainApp
+import org.wit.hillfort.activities.HillfortAdapter
+import org.wit.hillfort.activities.HillfortListener
 import org.wit.hillfort.models.HillfortModel
 
-class HillfortListActivity : AppCompatActivity(), HillfortListener, NavigationView.OnNavigationItemSelectedListener {
+class HillfortListView : AppCompatActivity(),
+    HillfortListener, NavigationView.OnNavigationItemSelectedListener {
 
-  lateinit var app: MainApp
+  lateinit var presenter: HillfortListPresenter
 
   private val drawerLayout by lazy {
     findViewById<DrawerLayout>(R.id.drawer_layout)
@@ -29,47 +30,42 @@ class HillfortListActivity : AppCompatActivity(), HillfortListener, NavigationVi
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main_nav)
-    app = application as MainApp
-
     toolbar.title = title
     //toolbar.setSubtitle("${app.currentUser.name}")
     setSupportActionBar(toolbar)
-
     getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+
+    presenter = HillfortListPresenter(this)
     val layoutManager = LinearLayoutManager(this)
     recyclerView.layoutManager = layoutManager
-    recyclerView.adapter = HillfortAdapter(app.hillforts.findAll(), this)
-
+    recyclerView.adapter = HillfortAdapter(presenter.getHillforts(),this)
+    recyclerView.adapter?.notifyDataSetChanged()
     val navView = findViewById<NavigationView>(R.id.nav_view)
     navView.setNavigationItemSelectedListener(this)
 
-val toggle = ActionBarDrawerToggle(
-  this, drawerLayout,toolbar,
-  R.string.open_nav_drawer, R.string.close_nav_drawer
-)
-    drawerLayout.addDrawerListener(toggle)
-    toggle.syncState()
-
-  }
+    val toggle = ActionBarDrawerToggle(
+       this, drawerLayout,toolbar,
+        R.string.open_nav_drawer, R.string.close_nav_drawer
+    )
+          drawerLayout.addDrawerListener(toggle)
+          toggle.syncState()
+    }
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-    menuInflater.inflate(R.menu.menu_list, menu)
+    menuInflater.inflate(R.menu.nav_main, menu)
     return super.onCreateOptionsMenu(menu)
   }
 
   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
     when (item?.itemId) {
-      R.id.item_add -> startActivity<HillfortActivity>()
-      R.id.item_map -> startActivity<HillfortMapsActivity>()
-
-
-      R.id.action_close -> finishAffinity()
+      R.id.item_add -> presenter.doAddHillfort()
+      R.id.item_map -> presenter.doShowHillfortsMap()
     }
     return super.onOptionsItemSelected(item)
   }
 
   override fun onHillfortClick(hillfort: HillfortModel) {
-    startActivityForResult(intentFor<HillfortActivity>().putExtra("hillfort_edit", hillfort), 0)
+    presenter.doEditHillfort(hillfort)
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -80,10 +76,7 @@ val toggle = ActionBarDrawerToggle(
   override fun onNavigationItemSelected(item: MenuItem): Boolean {
     drawerLayout.closeDrawer(GravityCompat.START)
     when (item.itemId) {
-      R.id.action_add -> startActivity<HillfortActivity>()
-
-
-      R.id.action_close -> finishAffinity()
+      R.id.action_add -> presenter.doAddHillfort()
     }
     return true
   }

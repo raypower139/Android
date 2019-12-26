@@ -8,7 +8,7 @@ import org.wit.hillfort.main.MainApp
 import org.wit.hillfort.models.Location
 import org.wit.hillfort.models.HillfortModel
 
-class HillfortPresenter(val view: HillfortActivity) {
+class HillfortPresenter(val view: HillfortView) {
 
     val IMAGE_REQUEST = 1
     val LOCATION_REQUEST = 2

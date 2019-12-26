@@ -27,15 +27,15 @@
 
 
         <activity
-            android:name=".activities.hillfort.HillfortActivity"
-            android:parentActivityName=".activities.HillfortListActivity">
+            android:name=".activities.hillfort.HillfortView"
+            android:parentActivityName=".activities.hillfortList.HillfortListView">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.HillfortListActivity" />
+                android:value=".activities.hillfortList.HillfortListView" />
         </activity>
         <activity
-            android:name=".activities.HillfortListActivity"
-            android:parentActivityName=".activities.hillfort.HillfortActivity">
+            android:name=".activities.hillfortList.HillfortListView"
+            android:parentActivityName=".activities.hillfort.HillfortView">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -17,6 +17,7 @@ import org.wit.hillfort.models.HillfortModel
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.activity_hillfort_list.*
 
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,7 +26,7 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
 
 
-class HillfortActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavigationItemSelectedListener {
+class HillfortView : AppCompatActivity(), AnkoLogger, NavigationView.OnNavigationItemSelectedListener {
 
     lateinit var presenter: HillfortPresenter
     var hillfort = HillfortModel()
@@ -105,7 +106,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
         // when you click on the button, show DatePickerDialog that is set with OnDateSetListener
         datePicker.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
-                DatePickerDialog(this@HillfortActivity,
+                DatePickerDialog(this@HillfortView,
                     dateSetListener,
                     // set DatePickerDialog to point to today's date when it loads up
                     cal.get(Calendar.YEAR),
@@ -163,7 +164,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         drawerLayout.closeDrawer(GravityCompat.START)
         when (item.itemId) {
-            R.id.action_add -> startActivity<HillfortActivity>()
+            R.id.action_add -> startActivity<HillfortView>()
 
             R.id.action_close -> finishAffinity()
         }

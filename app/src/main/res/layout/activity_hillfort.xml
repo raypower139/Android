@@ -6,7 +6,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
     android:background="@drawable/bg"
-  tools:context="org.wit.hillfort.activities.hillfort.HillfortActivity">
+  tools:context="org.wit.hillfort.activities.hillfort.HillfortView">
 
   <RelativeLayout
     android:layout_width="match_parent"
