@@ -1,4 +1,4 @@
-package org.wit.hillfort.activities
+package org.wit.hillfort.activities.hillfort
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -11,15 +11,11 @@ import android.widget.*
 import kotlinx.android.synthetic.main.activity_hillfort.*
 import org.jetbrains.anko.*
 import org.wit.hillfort.R
-import org.wit.hillfort.helpers.readImage
 import org.wit.hillfort.helpers.readImageFromPath
-import org.wit.hillfort.helpers.showImagePicker
 
-import org.wit.hillfort.models.Location
 import org.wit.hillfort.models.HillfortModel
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.internal.NavigationMenuPresenter
 import com.google.android.material.navigation.NavigationView
 
 import java.text.SimpleDateFormat
@@ -27,7 +23,6 @@ import java.util.*
 
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
-
 
 
 class HillfortActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavigationItemSelectedListener {
@@ -70,11 +65,12 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
             if (hillfortTitle.text.toString().isEmpty()) {
                 toast(R.string.enter_hillfort_title)
             } else {
-                presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString())
+                presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString(), visited_checkbox.isChecked, setDate.text.toString()  )
             }
         }
 
         chooseImage.setOnClickListener { presenter.doSelectImage() }
+
 
         hillfortLocation.setOnClickListener { presenter.doSetLocation() }
 
@@ -120,16 +116,15 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, NavigationView.OnNavig
         })
 
 
-
-
-
-
     }
 
      fun showHillfort(hillfort: HillfortModel) {
         hillfortTitle.setText(hillfort.title)
         description.setText(hillfort.description)
         notes.setText(hillfort.notes)
+         visited_checkbox.isChecked
+         setDate.setText(hillfort.date)
+         notes.setText(hillfort.notes)
         hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image))
         if (hillfort.image != null) {
             chooseImage.setText(R.string.change_hillfort_image)

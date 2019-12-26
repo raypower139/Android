@@ -27,7 +27,7 @@
 
 
         <activity
-            android:name=".activities.HillfortActivity"
+            android:name=".activities.hillfort.HillfortActivity"
             android:parentActivityName=".activities.HillfortListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -35,7 +35,7 @@
         </activity>
         <activity
             android:name=".activities.HillfortListActivity"
-            android:parentActivityName=".activities.HillfortActivity">
+            android:parentActivityName=".activities.hillfort.HillfortActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

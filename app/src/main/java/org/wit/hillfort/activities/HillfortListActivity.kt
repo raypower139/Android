@@ -3,8 +3,6 @@ package org.wit.hillfort.activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.Toolbar
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -14,8 +12,8 @@ import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_hillfort_list.*
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.startActivityForResult
 import org.wit.hillfort.R
+import org.wit.hillfort.activities.hillfort.HillfortActivity
 import org.wit.hillfort.main.MainApp
 import org.wit.hillfort.models.HillfortModel
 

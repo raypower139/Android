@@ -1,7 +1,8 @@
-package org.wit.hillfort.activities
+package org.wit.hillfort.activities.hillfort
 
 import android.content.Intent
 import org.jetbrains.anko.intentFor
+import org.wit.hillfort.activities.MapActivity
 import org.wit.hillfort.helpers.showImagePicker
 import org.wit.hillfort.main.MainApp
 import org.wit.hillfort.models.Location
@@ -12,10 +13,13 @@ class HillfortPresenter(val view: HillfortActivity) {
     val IMAGE_REQUEST = 1
     val LOCATION_REQUEST = 2
 
+
     var hillfort = HillfortModel()
     var location = Location(52.245696, -7.139102, 15f)
     var app: MainApp
-    var edit = false;
+    var edit = false
+
+
 
     init {
         app = view.application as MainApp
@@ -24,11 +28,15 @@ class HillfortPresenter(val view: HillfortActivity) {
             hillfort = view.intent.extras?.getParcelable<HillfortModel>("hillfort_edit")!!
             view.showHillfort(hillfort)
         }
+
+
     }
 
-    fun doAddOrSave(title: String, description: String) {
+    fun doAddOrSave(title: String, description: String, visited: Boolean, date: String) {
         hillfort.title = title
         hillfort.description = description
+        hillfort.visited = visited
+        hillfort.date = date
         if (edit) {
             app.hillforts.update(hillfort)
         } else {
@@ -65,6 +73,7 @@ class HillfortPresenter(val view: HillfortActivity) {
 
 
 
+
     fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         when (requestCode) {
             IMAGE_REQUEST -> {
@@ -80,4 +89,6 @@ class HillfortPresenter(val view: HillfortActivity) {
         }
 
     }
+
+
 }
