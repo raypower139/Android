@@ -13,6 +13,7 @@ data class HillfortModel(var id: Long = 0,
                          var visited: Boolean = false,
                          var date: String = "",
                          var notes: String = "",
+                         var rating: Float = 0f,
                          var lat : Double = 0.0,
                          var lng: Double = 0.0,
                          var zoom: Float = 0f

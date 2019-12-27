@@ -1,8 +1,6 @@
 package org.wit.hillfort.views.hillfort
 
 import android.content.Intent
-import org.jetbrains.anko.intentFor
-import org.wit.hillfort.views.editLocation.EditLocationView
 import org.wit.hillfort.helpers.showImagePicker
 import org.wit.hillfort.models.Location
 import org.wit.hillfort.models.HillfortModel
@@ -23,12 +21,21 @@ class HillfortPresenter(view: BaseView):BasePresenter(view) {
         }
     }
 
-    fun doAddOrSave(title: String, description: String, visited: Boolean, date: String, notes: String) {
+    fun doAddOrSave(
+        title: String,
+        description: String,
+        visited: Boolean,
+        date: String,
+        notes: String,
+        rating: Float
+
+    ) {
         hillfort.title = title
         hillfort.description = description
         hillfort.visited = visited
         hillfort.date = date
         hillfort.notes = notes
+        hillfort.rating = rating
         if (edit) {
             app.hillforts.update(hillfort)
         } else {
