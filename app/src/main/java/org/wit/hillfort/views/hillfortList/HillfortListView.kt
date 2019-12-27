@@ -18,6 +18,7 @@ class HillfortListView : AppCompatActivity(),
   HillfortListener, NavigationView.OnNavigationItemSelectedListener {
 
   lateinit var presenter: HillfortListPresenter
+  var edit = false
 
   private val drawerLayout by lazy {
     findViewById<DrawerLayout>(R.id.drawer_layout)
@@ -43,6 +44,8 @@ class HillfortListView : AppCompatActivity(),
     val navView = findViewById<NavigationView>(R.id.nav_view)
     navView.setNavigationItemSelectedListener(this)
 
+
+
     val toggle = ActionBarDrawerToggle(
        this, drawerLayout,toolbar,
         R.string.open_nav_drawer, R.string.close_nav_drawer
@@ -53,6 +56,7 @@ class HillfortListView : AppCompatActivity(),
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
     menuInflater.inflate(R.menu.menu_list, menu)
+
     return super.onCreateOptionsMenu(menu)
   }
 

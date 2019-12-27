@@ -61,14 +61,6 @@ class HillfortView : AppCompatActivity(), AnkoLogger, NavigationView.OnNavigatio
         dateText.setVisibility(View.INVISIBLE);
         setDate.setVisibility(View.INVISIBLE);
 
-        btnAdd.setOnClickListener {
-            if (hillfortTitle.text.toString().isEmpty()) {
-                toast(R.string.enter_hillfort_title)
-            } else {
-                presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString(), visited_checkbox.isChecked, setDate.text.toString(), notes.text.toString()  )
-            }
-        }
-
         chooseImage.setOnClickListener { presenter.doSelectImage() }
 
 
@@ -129,7 +121,7 @@ class HillfortView : AppCompatActivity(), AnkoLogger, NavigationView.OnNavigatio
         if (hillfort.image != null) {
             chooseImage.setText(R.string.change_hillfort_image)
         }
-        btnAdd.setText(R.string.save_hillfort)
+
          latVal.setText(""+hillfort.lat)
          longVal.setText(""+hillfort.lng)
     }
@@ -142,6 +134,14 @@ class HillfortView : AppCompatActivity(), AnkoLogger, NavigationView.OnNavigatio
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
+            R.id.item_save -> {
+                if (hillfortTitle.text.toString().isEmpty()) {
+                    toast(R.string.enter_hillfort_title)
+                } else {
+                    presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString(), visited_checkbox.isChecked, setDate.text.toString(), notes.text.toString()  )
+                }
+            }
+
             R.id.item_delete -> {
                 presenter.doDelete()
             }

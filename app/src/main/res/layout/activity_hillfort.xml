@@ -165,18 +165,6 @@
             android:padding="1dp"
             />
 
-        <Button
-            android:id="@+id/addNote"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:background="@color/colorAccent"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
-            android:text="Add Note"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp"/>
-
 
         <Button
 
@@ -191,18 +179,6 @@
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"/>
 
-
-        <TextView
-            android:id="@+id/hillfort_image_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="3dp"
-            android:text="Click on the image below to view the available images."
-            android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark"
-            android:textFontWeight="800"
-            android:fontFamily="sans-serif-medium"
-            />
 
         <ImageView
             android:id="@+id/hillfortImage"
@@ -292,23 +268,6 @@
               app:layout_constraintStart_toStartOf="parent" />
 
           </LinearLayout>
-
-
-
-
-
-        <Button
-          android:id="@+id/btnAdd"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_margin="16dp"
-          android:background="@color/colorAccent"
-          android:paddingTop="8dp"
-          android:paddingBottom="8dp"
-          android:stateListAnimator="@null"
-          android:text="@string/button_addHillfort"
-          android:textColor="@color/colorPrimary"
-          android:textSize="16sp" />
 
 
 
