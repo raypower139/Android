@@ -13,17 +13,15 @@ import kotlinx.android.synthetic.main.activity_hillfort_list.*
 
 import org.wit.hillfort.R
 import org.wit.hillfort.models.HillfortModel
+import org.wit.hillfort.views.BaseView
 
-class HillfortListView : AppCompatActivity(),
-  HillfortListener, NavigationView.OnNavigationItemSelectedListener {
+class HillfortListView : BaseView(), HillfortListener, NavigationView.OnNavigationItemSelectedListener {
 
   lateinit var presenter: HillfortListPresenter
-  var edit = false
 
   private val drawerLayout by lazy {
     findViewById<DrawerLayout>(R.id.drawer_layout)
   }
-
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -33,18 +31,15 @@ class HillfortListView : AppCompatActivity(),
     setSupportActionBar(toolbar)
     getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
 
-    presenter = HillfortListPresenter(this)
+    presenter = initPresenter(HillfortListPresenter(this)) as HillfortListPresenter
+
     val layoutManager = LinearLayoutManager(this)
     recyclerView.layoutManager = layoutManager
-    recyclerView.adapter = HillfortAdapter(
-      presenter.getHillforts(),
-      this
-    )
-    recyclerView.adapter?.notifyDataSetChanged()
+    presenter.loadHillforts()
+
+
     val navView = findViewById<NavigationView>(R.id.nav_view)
     navView.setNavigationItemSelectedListener(this)
-
-
 
     val toggle = ActionBarDrawerToggle(
        this, drawerLayout,toolbar,
@@ -54,9 +49,13 @@ class HillfortListView : AppCompatActivity(),
           toggle.syncState()
     }
 
+  override fun showHillforts(hillforts: List<HillfortModel>) {
+    recyclerView.adapter = HillfortAdapter(hillforts, this)
+    recyclerView.adapter?.notifyDataSetChanged()
+  }
+
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
     menuInflater.inflate(R.menu.menu_list, menu)
-
     return super.onCreateOptionsMenu(menu)
   }
 
@@ -73,7 +72,7 @@ class HillfortListView : AppCompatActivity(),
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    recyclerView.adapter?.notifyDataSetChanged()
+    presenter.loadHillforts()
     super.onActivityResult(requestCode, resultCode, data)
   }
 

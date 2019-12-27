@@ -23,9 +23,10 @@ import java.util.*
 
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
+import org.wit.hillfort.views.BaseView
 
 
-class HillfortView : AppCompatActivity(), AnkoLogger, NavigationView.OnNavigationItemSelectedListener {
+class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSelectedListener {
 
     lateinit var presenter: HillfortPresenter
     var hillfort = HillfortModel()
@@ -44,12 +45,11 @@ class HillfortView : AppCompatActivity(), AnkoLogger, NavigationView.OnNavigatio
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hillfort_nav)
-        toolbarAdd.title = title
-        setSupportActionBar(findViewById(R.id.toolbarAdd))
-        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        init(toolbarAdd)
+        //getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
         info("Hillfort Activity started..")
 
-        presenter = HillfortPresenter(this)
+        presenter = initPresenter (HillfortPresenter(this)) as HillfortPresenter
 
         val navView = findViewById<NavigationView>(R.id.nav_view)
         navView.setNavigationItemSelectedListener(this)
@@ -62,8 +62,6 @@ class HillfortView : AppCompatActivity(), AnkoLogger, NavigationView.OnNavigatio
         setDate.setVisibility(View.INVISIBLE);
 
         chooseImage.setOnClickListener { presenter.doSelectImage() }
-
-
         hillfortLocation.setOnClickListener { presenter.doSetLocation() }
 
         visited_checkbox.setOnClickListener(View.OnClickListener {
@@ -110,7 +108,7 @@ class HillfortView : AppCompatActivity(), AnkoLogger, NavigationView.OnNavigatio
 
     }
 
-     fun showHillfort(hillfort: HillfortModel) {
+     override fun showHillfort(hillfort: HillfortModel) {
         hillfortTitle.setText(hillfort.title)
         description.setText(hillfort.description)
         notes.setText(hillfort.notes)
@@ -121,7 +119,6 @@ class HillfortView : AppCompatActivity(), AnkoLogger, NavigationView.OnNavigatio
         if (hillfort.image != null) {
             chooseImage.setText(R.string.change_hillfort_image)
         }
-
          latVal.setText(""+hillfort.lat)
          longVal.setText(""+hillfort.lng)
     }
