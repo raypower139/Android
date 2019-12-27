@@ -12,12 +12,10 @@ import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_hillfort_list.*
 
 import org.wit.hillfort.R
-import org.wit.hillfort.activities.HillfortAdapter
-import org.wit.hillfort.activities.HillfortListener
 import org.wit.hillfort.models.HillfortModel
 
 class HillfortListView : AppCompatActivity(),
-    HillfortListener, NavigationView.OnNavigationItemSelectedListener {
+  HillfortListener, NavigationView.OnNavigationItemSelectedListener {
 
   lateinit var presenter: HillfortListPresenter
 
@@ -37,7 +35,10 @@ class HillfortListView : AppCompatActivity(),
     presenter = HillfortListPresenter(this)
     val layoutManager = LinearLayoutManager(this)
     recyclerView.layoutManager = layoutManager
-    recyclerView.adapter = HillfortAdapter(presenter.getHillforts(),this)
+    recyclerView.adapter = HillfortAdapter(
+      presenter.getHillforts(),
+      this
+    )
     recyclerView.adapter?.notifyDataSetChanged()
     val navView = findViewById<NavigationView>(R.id.nav_view)
     navView.setNavigationItemSelectedListener(this)

@@ -1,10 +1,9 @@
-package org.wit.hillfort.activities
+package org.wit.hillfort.views.hillfortList
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_hillfort.view.*
 import kotlinx.android.synthetic.main.card_hillfort.view.*
 import kotlinx.android.synthetic.main.card_hillfort.view.description
 import kotlinx.android.synthetic.main.card_hillfort.view.hillfortTitle
@@ -47,7 +46,6 @@ class HillfortAdapter constructor(private var hillforts: List<HillfortModel>,
             itemView.hillfortTitle.text = hillfort.title
             itemView.description.text = hillfort.description
             itemView.imageIcon.setImageBitmap(readImageFromPath(itemView.context, hillfort.image))
-            //itemView.notes.text = hillfort.notes
             itemView.visited_checkbox_card.isChecked = hillfort.visited
             if (hillfort.visited){
                 itemView.setDate.text = hillfort.date
