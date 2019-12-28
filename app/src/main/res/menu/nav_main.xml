@@ -8,7 +8,11 @@
       android:icon="@drawable/ic_add"
  />
 
-
+  <item
+      android:id="@+id/action_fav"
+      android:title="@string/open_fav"
+      android:icon="@drawable/fav_black"
+      />
   <item
       android:id="@+id/action_close"
       android:title="@string/close"

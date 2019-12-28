@@ -91,10 +91,10 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
 
         fav_button.setOnClickListener(View.OnClickListener {
             if (hillfort.favourite == true) {
-                fav_button.setBackgroundResource(fav_white)
+                fav_button.setBackgroundResource(fav_black)
                 hillfort.favourite = false
             } else if (hillfort.favourite == false) {
-                fav_button.setBackgroundResource(fav_black)
+                fav_button.setBackgroundResource(fav_white)
                 hillfort.favourite = true
             }
         })
@@ -141,10 +141,10 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
             notes.setText(hillfort.notes)
             ratingBar.setRating(hillfort.rating)
             if (hillfort.favourite == true) {
-                fav_button.setBackgroundResource(fav_white)
+                fav_button.setBackgroundResource(fav_black)
                 hillfort.favourite = false
             } else if (hillfort.favourite == false) {
-                fav_button.setBackgroundResource(fav_black)
+                fav_button.setBackgroundResource(fav_white)
                 hillfort.favourite = true
             }
 

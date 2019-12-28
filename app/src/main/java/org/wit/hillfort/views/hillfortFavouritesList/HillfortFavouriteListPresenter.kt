@@ -1,4 +1,4 @@
-package org.wit.hillfort.views.hillfortList
+package org.wit.hillfort.views.hillfortFavouritesList
 
 
 import org.jetbrains.anko.*
@@ -10,9 +10,8 @@ import org.wit.hillfort.models.HillfortModel
 import org.wit.hillfort.views.BasePresenter
 import org.wit.hillfort.views.BaseView
 import org.wit.hillfort.views.VIEW
-import org.wit.hillfort.views.hillfortFavouritesList.HillfortFavouriteListView
 
-class HillfortListPresenter (view: BaseView) : BasePresenter(view) {
+class HillfortFavouriteListPresenter (view: BaseView) : BasePresenter(view) {
 
     //fun getHillforts() = app.hillforts.findAll()
 
@@ -32,11 +31,11 @@ class HillfortListPresenter (view: BaseView) : BasePresenter(view) {
         view?.startActivity<HillfortMapView>()
     }
 
-    fun loadHillforts() {
+    fun loadFavouriteHillforts() {
         doAsync {
             val hillforts = app.hillforts.findAll()
             uiThread {
-                view?.showHillforts(hillforts)
+                view?.showHillforts(hillforts.filter { it.favourite != false })
 
             }
         }

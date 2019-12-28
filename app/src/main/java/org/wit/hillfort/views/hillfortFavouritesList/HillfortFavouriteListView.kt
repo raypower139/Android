@@ -1,10 +1,9 @@
-package org.wit.hillfort.views.hillfortList
+package org.wit.hillfort.views.hillfortFavouritesList
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,11 +13,13 @@ import kotlinx.android.synthetic.main.activity_hillfort_list.*
 import org.wit.hillfort.R
 import org.wit.hillfort.models.HillfortModel
 import org.wit.hillfort.views.BaseView
-import org.wit.hillfort.views.VIEW
+import org.wit.hillfort.views.hillfortList.HillfortAdapter
+import org.wit.hillfort.views.hillfortList.HillfortListener
 
-class HillfortListView : BaseView(), HillfortListener, NavigationView.OnNavigationItemSelectedListener {
+class HillfortFavouriteListView : BaseView(),
+  HillfortListener, NavigationView.OnNavigationItemSelectedListener {
 
-  lateinit var presenter: HillfortListPresenter
+  lateinit var presenter: HillfortFavouriteListPresenter
 
   private val drawerLayout by lazy {
     findViewById<DrawerLayout>(R.id.drawer_layout)
@@ -27,16 +28,20 @@ class HillfortListView : BaseView(), HillfortListener, NavigationView.OnNavigati
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main_nav)
-    toolbar.title = title
+    toolbar.title = "Favourites"
     //toolbar.setSubtitle("${app.currentUser.name}")
     setSupportActionBar(toolbar)
     getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
 
-    presenter = initPresenter(HillfortListPresenter(this)) as HillfortListPresenter
+    presenter = initPresenter(
+      HillfortFavouriteListPresenter(
+        this
+      )
+    ) as HillfortFavouriteListPresenter
 
     val layoutManager = LinearLayoutManager(this)
     recyclerView.layoutManager = layoutManager
-    presenter.loadHillforts()
+    presenter.loadFavouriteHillforts()
 
 
     val navView = findViewById<NavigationView>(R.id.nav_view)
@@ -51,7 +56,8 @@ class HillfortListView : BaseView(), HillfortListener, NavigationView.OnNavigati
     }
 
   override fun showHillforts(hillforts: List<HillfortModel>) {
-    recyclerView.adapter = HillfortAdapter(hillforts, this)
+    recyclerView.adapter =
+      HillfortAdapter(hillforts, this)
     recyclerView.adapter?.notifyDataSetChanged()
   }
 
@@ -73,7 +79,7 @@ class HillfortListView : BaseView(), HillfortListener, NavigationView.OnNavigati
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    presenter.loadHillforts()
+    presenter.loadFavouriteHillforts()
     super.onActivityResult(requestCode, resultCode, data)
   }
 
