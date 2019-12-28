@@ -30,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:titleTextColor="@color/colorPrimary" />
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -59,39 +60,39 @@
           app:layout_constraintTop_toTopOf="parent" />
 
 
-      <EditText
-          android:id="@+id/description"
-          android:layout_width="392dp"
-          android:layout_height="47dp"
-          android:layout_marginStart="10dp"
-          android:autofillHints=""
-          android:hint="@string/hint_hillfortDescription"
-          android:inputType="text"
-          android:maxLength="25"
-          android:maxLines="1"
-          android:padding="8dp"
-          android:textColor="@color/colorPrimaryDark"
-          android:textSize="14sp"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/hillfortTitle"
+        <EditText
+            android:id="@+id/description"
+            android:layout_width="392dp"
+            android:layout_height="47dp"
+            android:layout_marginStart="10dp"
+            android:autofillHints=""
+            android:hint="@string/hint_hillfortDescription"
+            android:inputType="text"
+            android:maxLength="25"
+            android:maxLines="1"
+            android:padding="8dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hillfortTitle"
 
-          />
+            />
 
-      <EditText
-          android:id="@+id/notes"
-          android:layout_width="387dp"
-          android:layout_height="106dp"
-          android:layout_marginStart="10dp"
-          android:autofillHints=""
-          android:hint="@string/hint_hillfortNotes"
-          android:inputType="textMultiLine"
-          android:maxLength="500"
-          android:maxLines="5"
-          android:padding="8dp"
-          android:textColor="@color/colorPrimaryDark"
-          android:textSize="14sp"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/description" />
+        <EditText
+            android:id="@+id/notes"
+            android:layout_width="309dp"
+            android:layout_height="104dp"
+            android:layout_marginStart="10dp"
+            android:autofillHints=""
+            android:hint="@string/hint_hillfortNotes"
+            android:inputType="textMultiLine"
+            android:maxLength="500"
+            android:maxLines="5"
+            android:padding="8dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/description" />
 
       <CheckBox
           android:id="@+id/visited_checkbox"
@@ -283,6 +284,15 @@
           app:layout_constraintStart_toEndOf="@+id/datePicker"
           app:layout_constraintTop_toBottomOf="@+id/notes" />
 
+        <ImageView
+            android:id="@+id/fav_button"
+            android:layout_width="52dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toEndOf="@+id/notes"
+            app:layout_constraintTop_toBottomOf="@+id/description"
+            app:srcCompat="@drawable/fav_white" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

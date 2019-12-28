@@ -19,6 +19,8 @@ import org.jetbrains.anko.info
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import org.wit.hillfort.R
+import org.wit.hillfort.R.drawable.fav_black
+import org.wit.hillfort.R.drawable.fav_white
 import org.wit.hillfort.helpers.readImageFromPath
 import org.wit.hillfort.models.HillfortModel
 import org.wit.hillfort.views.BaseView
@@ -87,6 +89,18 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
                 }
             })
 
+        fav_button.setOnClickListener(View.OnClickListener {
+            if (hillfort.favourite == true) {
+                fav_button.setBackgroundResource(fav_white)
+                hillfort.favourite = false
+            } else if (hillfort.favourite == false) {
+                fav_button.setBackgroundResource(fav_black)
+                hillfort.favourite = true
+            }
+        })
+
+
+
             // create an OnDateSetListener
             val dateSetListener = object : DatePickerDialog.OnDateSetListener {
                 override fun onDateSet(
@@ -126,6 +140,16 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
             setDate.setText(hillfort.date)
             notes.setText(hillfort.notes)
             ratingBar.setRating(hillfort.rating)
+            if (hillfort.favourite == true) {
+                fav_button.setBackgroundResource(fav_white)
+                hillfort.favourite = false
+            } else if (hillfort.favourite == false) {
+                fav_button.setBackgroundResource(fav_black)
+                hillfort.favourite = true
+            }
+
+
+
             hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image))
             if (hillfort.image != null) {
                 chooseImage.setText(R.string.change_hillfort_image)
@@ -153,6 +177,7 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
                             setDate.text.toString(),
                             notes.text.toString(),
                             ratingBar.getRating()
+
                         )
                     }
                 }

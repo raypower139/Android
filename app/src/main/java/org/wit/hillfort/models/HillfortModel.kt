@@ -16,6 +16,7 @@ data class HillfortModel(@PrimaryKey(autoGenerate = true) var id: Long = 0,
                          var date: String = "",
                          var notes: String = "",
                          var rating: Float = 0f,
+                         var favourite: Boolean = false,
                          var lat : Double = 0.0,
                          var lng: Double = 0.0,
                          var zoom: Float = 0f
@@ -25,3 +26,6 @@ data class HillfortModel(@PrimaryKey(autoGenerate = true) var id: Long = 0,
 data class Location(var lat: Double = 0.0,
                     var lng: Double = 0.0,
                     var zoom: Float = 0f) : Parcelable
+
+@Parcelize
+data class Favourites(var id: Long = 0) : Parcelable
