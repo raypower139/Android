@@ -5,6 +5,8 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import org.wit.hillfort.main.MainApp
 import org.wit.hillfort.models.HillfortModel
 import org.wit.hillfort.views.BasePresenter
@@ -26,11 +28,17 @@ class HillfortMapPresenter(view: BaseView) : BasePresenter(view) {
 
     fun doMarkerSelected(marker: Marker) {
         val tag = marker.tag as Long
+        doAsync {
         val hillfort = app.hillforts.findById(tag)
-        if (hillfort != null) view?.showHillfort(hillfort)
-    }
+            uiThread {
+                if (hillfort != null) view?.showHillfort(hillfort)
+    }}}
 
     fun loadHillforts() {
-        view?.showHillforts(app.hillforts.findAll())
-    }
+        doAsync {
+            val hillforts = app.hillforts.findAll()
+            uiThread {
+                view?.showHillforts(hillforts)
+            }
+    }}
 }
