@@ -7,6 +7,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_hillfort_list.*
@@ -16,7 +17,7 @@ import org.wit.hillfort.models.HillfortModel
 import org.wit.hillfort.views.BaseView
 import org.wit.hillfort.views.VIEW
 
-class HillfortListView : BaseView(), HillfortListener, NavigationView.OnNavigationItemSelectedListener {
+class HillfortListView : BaseView() , HillfortListener, NavigationView.OnNavigationItemSelectedListener {
 
   lateinit var presenter: HillfortListPresenter
 
