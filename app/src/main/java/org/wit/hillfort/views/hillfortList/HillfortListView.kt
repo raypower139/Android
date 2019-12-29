@@ -9,13 +9,17 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_hillfort_list.*
+import org.jetbrains.anko.startActivityForResult
 
 import org.wit.hillfort.R
 import org.wit.hillfort.models.HillfortModel
 import org.wit.hillfort.views.BaseView
 import org.wit.hillfort.views.VIEW
+import org.wit.hillfort.views.hillfort.HillfortView
+import org.wit.hillfort.views.hillfortFavouritesList.HillfortFavouriteListView
 
 class HillfortListView : BaseView() , HillfortListener, NavigationView.OnNavigationItemSelectedListener {
 
@@ -42,6 +46,9 @@ class HillfortListView : BaseView() , HillfortListener, NavigationView.OnNavigat
 
     val navView = findViewById<NavigationView>(R.id.nav_view)
     navView.setNavigationItemSelectedListener(this)
+
+    val navigation: BottomNavigationView = findViewById(R.id.bottomNav) as BottomNavigationView
+    navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
     val toggle = ActionBarDrawerToggle(
        this, drawerLayout,toolbar,
@@ -86,5 +93,15 @@ class HillfortListView : BaseView() , HillfortListener, NavigationView.OnNavigat
     }
     return true
   }
+
+  private val mOnNavigationItemSelectedListener =
+    BottomNavigationView.OnNavigationItemSelectedListener { item ->
+      when (item.itemId) {
+        R.id.nav_home -> startActivityForResult<HillfortListView>(0)
+        R.id.nav_add -> startActivityForResult<HillfortView>(0)
+        R.id.nav_map -> startActivityForResult<HillfortFavouriteListView>(0)
+      }
+      false
+    }
 }
 

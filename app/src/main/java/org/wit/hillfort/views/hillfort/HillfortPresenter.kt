@@ -48,8 +48,12 @@ class HillfortPresenter(view: BaseView):BasePresenter(view) {
     }
 
     fun doDelete() {
-        app.hillforts.delete(hillfort)
-        view?.finish()
+        doAsync {
+            app.hillforts.delete(hillfort)
+            uiThread {
+                view?.finish()
+            }
+        }
     }
 
     fun doSelectImage() {

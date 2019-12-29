@@ -12,18 +12,18 @@ import android.widget.RatingBar
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_hillfort.*
-import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.*
 import org.wit.hillfort.R
 import org.wit.hillfort.R.drawable.fav_black
 import org.wit.hillfort.R.drawable.fav_white
 import org.wit.hillfort.helpers.readImageFromPath
 import org.wit.hillfort.models.HillfortModel
 import org.wit.hillfort.views.BaseView
+import org.wit.hillfort.views.hillfortFavouritesList.HillfortFavouriteListView
+import org.wit.hillfort.views.hillfortList.HillfortListView
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -56,6 +56,8 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
         val navView = findViewById<NavigationView>(R.id.nav_view)
         navView.setNavigationItemSelectedListener(this)
 
+        //val navigation: BottomNavigationView = findViewById(R.id.bottomNav) as BottomNavigationView
+        //navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         val ratingBar = findViewById<RatingBar>(R.id.ratingBar)
         val ratingButton = findViewById<Button>(R.id.ratingButton)
@@ -208,6 +210,16 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
                 R.id.action_close -> finishAffinity()
             }
             return true
+        }
+
+    private val mOnNavigationItemSelectedListener =
+        BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> startActivityForResult<HillfortListView>(0)
+                R.id.nav_add -> startActivityForResult<HillfortView>(0)
+                R.id.nav_map -> startActivityForResult<HillfortFavouriteListView>(0)
+            }
+            false
         }
 
     }
