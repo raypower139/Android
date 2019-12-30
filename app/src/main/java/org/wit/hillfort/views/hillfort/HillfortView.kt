@@ -56,9 +56,6 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
         val navView = findViewById<NavigationView>(R.id.nav_view)
         navView.setNavigationItemSelectedListener(this)
 
-        //val navigation: BottomNavigationView = findViewById(R.id.bottomNav) as BottomNavigationView
-        //navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-
         val ratingBar = findViewById<RatingBar>(R.id.ratingBar)
         val ratingButton = findViewById<Button>(R.id.ratingButton)
         ratingButton?.setOnClickListener {
@@ -71,22 +68,22 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
             //  SET IMAGE AND CALENDER PICKER TO INVISIBLE
             hillfortImage.setVisibility(View.VISIBLE);
             datePicker.setVisibility(View.INVISIBLE);
-            dateText.setVisibility(View.INVISIBLE);
+
             setDate.setVisibility(View.INVISIBLE);
 
             chooseImage.setOnClickListener { presenter.doSelectImage() }
-            hillfortLocation.setOnClickListener { presenter.doSetLocation() }
+
 
             visited_checkbox.setOnClickListener(View.OnClickListener {
                 if (visited_checkbox.isChecked) {
                     hillfort.visited = true
                     datePicker.setVisibility(View.VISIBLE); //Set to visible
-                    dateText.setVisibility(View.VISIBLE); //Set to visible
+
                     setDate.setVisibility(View.VISIBLE); //Set to visible
                 } else {
                     hillfort.visited = false //Set to invisible
                     datePicker.setVisibility(View.INVISIBLE); //Set to invisible
-                    dateText.setVisibility(View.INVISIBLE); //Set to invisible
+
                     setDate.setVisibility(View.INVISIBLE); //Set to invisible
                 }
             })
@@ -144,10 +141,8 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
             ratingBar.setRating(hillfort.rating)
             if (hillfort.favourite == true) {
                 fav_button.setBackgroundResource(fav_black)
-                hillfort.favourite = false
             } else if (hillfort.favourite == false) {
                 fav_button.setBackgroundResource(fav_white)
-                hillfort.favourite = true
             }
 
 
@@ -212,15 +207,7 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
             return true
         }
 
-    private val mOnNavigationItemSelectedListener =
-        BottomNavigationView.OnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_home -> startActivityForResult<HillfortListView>(0)
-                R.id.nav_add -> startActivityForResult<HillfortView>(0)
-                R.id.nav_map -> startActivityForResult<HillfortFavouriteListView>(0)
-            }
-            false
-        }
+
 
     }
 

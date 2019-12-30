@@ -276,6 +276,16 @@
           app:layout_constraintStart_toEndOf="@+id/datePicker"
           app:layout_constraintTop_toBottomOf="@+id/notes" />
 
+      <ImageView
+          android:id="@+id/fav_button"
+          android:layout_width="52dp"
+          android:layout_height="46dp"
+          android:layout_marginStart="24dp"
+          android:layout_marginTop="12dp"
+          app:layout_constraintStart_toEndOf="@+id/notes"
+          app:layout_constraintTop_toBottomOf="@+id/description"
+          app:srcCompat="@drawable/fav_white" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
