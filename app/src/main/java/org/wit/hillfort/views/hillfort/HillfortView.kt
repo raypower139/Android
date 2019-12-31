@@ -46,15 +46,21 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_hillfort_nav)
+        setContentView(R.layout.activity_hillfort)
         init(toolbarAdd)
         //getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
         info("Hillfort Activity started..")
 
         presenter = initPresenter(HillfortPresenter(this)) as HillfortPresenter
 
-        val navView = findViewById<NavigationView>(R.id.nav_view)
-        navView.setNavigationItemSelectedListener(this)
+        mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync {
+            presenter.doConfigureMap(it)
+            it.setOnMapClickListener { presenter.doSetLocation() }
+        }
+
+       // val navView = findViewById<NavigationView>(R.id.nav_view)
+        //navView.setNavigationItemSelectedListener(this)
 
         val ratingBar = findViewById<RatingBar>(R.id.ratingBar)
         val ratingButton = findViewById<Button>(R.id.ratingButton)
@@ -63,30 +69,27 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
             Toast.makeText(
                 this@HillfortView,
                 "Rating is: " + msg, Toast.LENGTH_SHORT
-            ).show()}
+            ).show()
+        }
 
-            //  SET IMAGE AND CALENDER PICKER TO INVISIBLE
-            hillfortImage.setVisibility(View.VISIBLE);
-            datePicker.setVisibility(View.INVISIBLE);
+        //  SET IMAGE AND CALENDER PICKER TO INVISIBLE
+        hillfortImage.setVisibility(View.VISIBLE);
+        datePicker.setVisibility(View.INVISIBLE);
+        setDate.setVisibility(View.INVISIBLE);
 
-            setDate.setVisibility(View.INVISIBLE);
+        chooseImage.setOnClickListener { presenter.doSelectImage() }
 
-            chooseImage.setOnClickListener { presenter.doSelectImage() }
-
-
-            visited_checkbox.setOnClickListener(View.OnClickListener {
-                if (visited_checkbox.isChecked) {
-                    hillfort.visited = true
-                    datePicker.setVisibility(View.VISIBLE); //Set to visible
-
-                    setDate.setVisibility(View.VISIBLE); //Set to visible
-                } else {
-                    hillfort.visited = false //Set to invisible
-                    datePicker.setVisibility(View.INVISIBLE); //Set to invisible
-
-                    setDate.setVisibility(View.INVISIBLE); //Set to invisible
-                }
-            })
+        visited_checkbox.setOnClickListener(View.OnClickListener {
+            if (visited_checkbox.isChecked) {
+                hillfort.visited = true
+                datePicker.setVisibility(View.VISIBLE); //Set to visible
+                setDate.setVisibility(View.VISIBLE); //Set to visible
+            } else {
+                hillfort.visited = false //Set to invisible
+                datePicker.setVisibility(View.INVISIBLE); //Set to invisible
+                setDate.setVisibility(View.INVISIBLE); //Set to invisible
+            }
+        })
 
         fav_button.setOnClickListener(View.OnClickListener {
             if (hillfort.favourite == true) {
@@ -99,118 +102,142 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
         })
 
 
-
-            // create an OnDateSetListener
-            val dateSetListener = object : DatePickerDialog.OnDateSetListener {
-                override fun onDateSet(
-                    view: DatePicker, year: Int, monthOfYear: Int,
-                    dayOfMonth: Int
-                ) {
-                    cal.set(Calendar.YEAR, year)
-                    cal.set(Calendar.MONTH, monthOfYear)
-                    cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                    val myFormat = "dd-MM-yyyy" // mention the format you need
-                    val sdf = SimpleDateFormat(myFormat, Locale.ENGLISH)
-                    setDate.setText("" + dayOfMonth + "/" + monthOfYear + "/" + year)
-                    toast(sdf.format(cal.time))
-                }
-            }
-
-            // when you click on the button, show DatePickerDialog that is set with OnDateSetListener
-            datePicker.setOnClickListener(object : View.OnClickListener {
-                override fun onClick(view: View) {
-                    DatePickerDialog(
-                        this@HillfortView,
-                        dateSetListener,
-                        // set DatePickerDialog to point to today's date when it loads up
-                        cal.get(Calendar.YEAR),
-                        cal.get(Calendar.MONTH),
-                        cal.get(Calendar.DAY_OF_MONTH)
-                    ).show()
-                }
-            })
-        }
-
-        override fun showHillfort(hillfort: HillfortModel) {
-            hillfortTitle.setText(hillfort.title)
-            description.setText(hillfort.description)
-            notes.setText(hillfort.notes)
-            visited_checkbox.isChecked
-            setDate.setText(hillfort.date)
-            notes.setText(hillfort.notes)
-            ratingBar.setRating(hillfort.rating)
-            if (hillfort.favourite == true) {
-                fav_button.setBackgroundResource(fav_black)
-            } else if (hillfort.favourite == false) {
-                fav_button.setBackgroundResource(fav_white)
-            }
-
-
-
-            hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image))
-            if (hillfort.image != null) {
-                chooseImage.setText(R.string.change_hillfort_image)
-            }
-            latVal.setText("" + hillfort.lat)
-            longVal.setText("" + hillfort.lng)
-        }
-
-        override fun onCreateOptionsMenu(menu: Menu): Boolean {
-            menuInflater.inflate(R.menu.menu_hillfort, menu)
-            if (presenter.edit) menu.getItem(0).setVisible(true)
-            return super.onCreateOptionsMenu(menu)
-        }
-
-        override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-            when (item?.itemId) {
-                R.id.item_save -> {
-                    if (hillfortTitle.text.toString().isEmpty()) {
-                        toast(R.string.enter_hillfort_title)
-                    } else {
-                        presenter.doAddOrSave(
-                            hillfortTitle.text.toString(),
-                            description.text.toString(),
-                            visited_checkbox.isChecked,
-                            setDate.text.toString(),
-                            notes.text.toString(),
-                            ratingBar.getRating()
-
-                        )
-                    }
-                }
-
-                R.id.item_delete -> {
-                    presenter.doDelete()
-                }
-                R.id.item_cancel -> {
-                    presenter.doCancel()
-                }
-
-            }
-            return super.onOptionsItemSelected(item)
-        }
-
-        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-            super.onActivityResult(requestCode, resultCode, data)
-            if (data != null) {
-                presenter.doActivityResult(requestCode, resultCode, data)
+        // create an OnDateSetListener
+        val dateSetListener = object : DatePickerDialog.OnDateSetListener {
+            override fun onDateSet(
+                view: DatePicker, year: Int, monthOfYear: Int,
+                dayOfMonth: Int
+            ) {
+                cal.set(Calendar.YEAR, year)
+                cal.set(Calendar.MONTH, monthOfYear)
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                val myFormat = "dd-MM-yyyy" // mention the format you need
+                val sdf = SimpleDateFormat(myFormat, Locale.ENGLISH)
+                setDate.setText("" + dayOfMonth + "/" + monthOfYear + "/" + year)
+                toast(sdf.format(cal.time))
             }
         }
 
-        override fun onNavigationItemSelected(item: MenuItem): Boolean {
-            drawerLayout.closeDrawer(GravityCompat.START)
-            when (item.itemId) {
-                R.id.action_add -> startActivity<HillfortView>()
-
-                R.id.action_close -> finishAffinity()
+        // when you click on the button, show DatePickerDialog that is set with OnDateSetListener
+        datePicker.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(view: View) {
+                DatePickerDialog(
+                    this@HillfortView,
+                    dateSetListener,
+                    // set DatePickerDialog to point to today's date when it loads up
+                    cal.get(Calendar.YEAR),
+                    cal.get(Calendar.MONTH),
+                    cal.get(Calendar.DAY_OF_MONTH)
+                ).show()
             }
-            return true
-        }
-
-
-
+        })
     }
 
+    override fun showHillfort(hillfort: HillfortModel) {
+        hillfortTitle.setText(hillfort.title)
+        description.setText(hillfort.description)
+        notes.setText(hillfort.notes)
+        visited_checkbox.isChecked
+        setDate.setText(hillfort.date)
+        notes.setText(hillfort.notes)
+        ratingBar.setRating(hillfort.rating)
+
+        hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image))
+        if (hillfort.image != null) {
+            chooseImage.setText(R.string.change_hillfort_image)
+        }
+        this.showLocation(hillfort.lat, hillfort.lng)
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_hillfort, menu)
+        if (presenter.edit) menu.getItem(0).setVisible(true)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.item_save -> {
+                if (hillfortTitle.text.toString().isEmpty()) {
+                    toast(R.string.enter_hillfort_title)
+                } else {
+                    presenter.doAddOrSave(
+                        hillfortTitle.text.toString(),
+                        description.text.toString(),
+                        visited_checkbox.isChecked,
+                        setDate.text.toString(),
+                        notes.text.toString(),
+                        ratingBar.getRating(),
+                        hillfort.favourite
+
+                    )
+                }
+            }
+
+            R.id.item_delete -> {
+                presenter.doDelete()
+            }
+            R.id.item_cancel -> {
+                presenter.doCancel()
+            }
+
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data != null) {
+            presenter.doActivityResult(requestCode, resultCode, data)
+        }
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        drawerLayout.closeDrawer(GravityCompat.START)
+        when (item.itemId) {
+            R.id.action_add -> startActivity<HillfortView>()
+
+            R.id.action_close -> finishAffinity()
+        }
+        return true
+    }
+
+    fun showLocation(latitude: Double, longitude: Double) {
+        latVal.setText("%.6f".format(latitude))
+        longVal.setText("%.6f".format(longitude))
+    }
+
+    override fun onBackPressed() {
+        presenter.doCancel()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mapView.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        mapView.onLowMemory()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mapView.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mapView.onResume()
+        presenter.doResartLocationUpdates()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        mapView.onSaveInstanceState(outState)
+    }
+}
 
 
 
