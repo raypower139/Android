@@ -21,6 +21,7 @@ import org.wit.hillfort.R.drawable.fav_black
 import org.wit.hillfort.R.drawable.fav_white
 import org.wit.hillfort.helpers.readImageFromPath
 import org.wit.hillfort.models.HillfortModel
+import org.wit.hillfort.models.Location
 import org.wit.hillfort.views.BaseView
 import org.wit.hillfort.views.hillfortFavouritesList.HillfortFavouriteListView
 import org.wit.hillfort.views.hillfortList.HillfortListView
@@ -146,7 +147,7 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
         if (hillfort.image != null) {
             chooseImage.setText(R.string.change_hillfort_image)
         }
-        this.showLocation(hillfort.lat, hillfort.lng)
+        this.showLocation(hillfort.location)
     }
 
 
@@ -203,9 +204,9 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
         return true
     }
 
-    override fun showLocation(latitude: Double, longitude: Double) {
-        latVal.setText("%.6f".format(latitude))
-        longVal.setText("%.6f".format(longitude))
+    override fun showLocation(location: Location) {
+        latVal.setText("%.6f".format(location.lat))
+        longVal.setText("%.6f".format(location.lng))
     }
 
     override fun onBackPressed() {

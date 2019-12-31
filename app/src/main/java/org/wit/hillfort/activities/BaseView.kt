@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar
 import org.jetbrains.anko.AnkoLogger
 
 import org.wit.hillfort.models.HillfortModel
+import org.wit.hillfort.models.Location
 import org.wit.hillfort.views.editLocation.EditLocationView
 import org.wit.hillfort.views.map.HillfortMapView
 import org.wit.hillfort.views.hillfort.HillfortView
@@ -66,7 +67,7 @@ open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
         basePresenter?.doRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
-    open fun showLocation(latitude : Double, longitude : Double) {}
+    open fun showLocation(location : Location) {}
     open fun showHillfort(hillfort: HillfortModel) {}
     open fun showHillforts(hillforts: List<HillfortModel>) {}
     open fun showProgress() {}
