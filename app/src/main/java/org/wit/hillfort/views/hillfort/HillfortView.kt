@@ -203,7 +203,7 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
         return true
     }
 
-    fun showLocation(latitude: Double, longitude: Double) {
+    override fun showLocation(latitude: Double, longitude: Double) {
         latVal.setText("%.6f".format(latitude))
         longVal.setText("%.6f".format(longitude))
     }
