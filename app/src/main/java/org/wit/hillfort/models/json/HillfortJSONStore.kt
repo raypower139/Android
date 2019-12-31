@@ -93,7 +93,9 @@ class HillfortJSONStore : HillfortStore, AnkoLogger {
         serialize()
     }
 
-
+    override fun clear() {
+        hillforts.clear()
+    }
 
 
 }

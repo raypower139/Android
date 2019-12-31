@@ -11,11 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_hillfort_list.*
 import org.jetbrains.anko.startActivityForResult
 
 import org.wit.hillfort.R
 import org.wit.hillfort.models.HillfortModel
+import org.wit.hillfort.models.json.app
 import org.wit.hillfort.views.BaseView
 import org.wit.hillfort.views.VIEW
 import org.wit.hillfort.views.hillfort.HillfortView
@@ -107,5 +109,7 @@ class HillfortListView : BaseView() , HillfortListener, NavigationView.OnNavigat
       }
       false
     }
+
+
 }
 
