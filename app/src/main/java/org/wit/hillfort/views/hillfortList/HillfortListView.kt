@@ -64,7 +64,7 @@ class HillfortListView : BaseView() , HillfortListener, NavigationView.OnNavigat
   }
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-    menuInflater.inflate(R.menu.menu_list, menu)
+    menuInflater.inflate(R.menu.nav_main, menu)
     return super.onCreateOptionsMenu(menu)
   }
 
@@ -72,6 +72,7 @@ class HillfortListView : BaseView() , HillfortListener, NavigationView.OnNavigat
     when (item?.itemId) {
       R.id.item_add -> presenter.doAddHillfort()
       R.id.item_map -> presenter.doShowHillfortsMap()
+      R.id.item_logout ->presenter.doLogout()
     }
     return super.onOptionsItemSelected(item)
   }
@@ -90,6 +91,8 @@ class HillfortListView : BaseView() , HillfortListener, NavigationView.OnNavigat
     when (item.itemId) {
       R.id.action_add -> presenter.doAddHillfort()
       R.id.action_fav -> presenter.doShowFavouriteHillfort()
+      R.id.item_logout ->presenter.doLogout()
+
     }
     return true
   }
@@ -100,6 +103,7 @@ class HillfortListView : BaseView() , HillfortListener, NavigationView.OnNavigat
         R.id.nav_home -> startActivityForResult<HillfortListView>(0)
         R.id.nav_add -> startActivityForResult<HillfortView>(0)
         R.id.nav_map -> startActivityForResult<HillfortFavouriteListView>(0)
+
       }
       false
     }
