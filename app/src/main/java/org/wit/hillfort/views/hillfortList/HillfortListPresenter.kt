@@ -42,6 +42,11 @@ class HillfortListPresenter (view: BaseView) : BasePresenter(view) {
         }
     }
 
+    fun doLogout() {
+        view?.navigateTo(VIEW.LOGIN)
+    }
 }
+
+
 
 
