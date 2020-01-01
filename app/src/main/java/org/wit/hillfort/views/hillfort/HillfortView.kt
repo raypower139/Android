@@ -12,6 +12,7 @@ import android.widget.RatingBar
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_hillfort.*
@@ -143,7 +144,7 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
         notes.setText(hillfort.notes)
         ratingBar.setRating(hillfort.rating)
 
-        hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image))
+        Glide.with(this).load(hillfort.image).into(hillfortImage);
         if (hillfort.image != null) {
             chooseImage.setText(R.string.change_hillfort_image)
         }
