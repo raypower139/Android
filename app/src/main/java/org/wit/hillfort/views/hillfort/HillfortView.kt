@@ -61,7 +61,7 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
             it.setOnMapClickListener { presenter.doSetLocation() }
         }
 
-       // val navView = findViewById<NavigationView>(R.id.nav_view)
+        //val navView = findViewById<NavigationView>(R.id.nav_view)
         //navView.setNavigationItemSelectedListener(this)
 
         val ratingBar = findViewById<RatingBar>(R.id.ratingBar)
@@ -103,6 +103,22 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
             }
         })
 
+
+        shareButton.setOnClickListener{
+
+            val details = "Hillfort Details" +
+                    "\n\nTitle: ${presenter.hillfort.title}" +
+                    "\nDescription: ${presenter.hillfort.description}" +
+                    "\nRating: ${presenter.hillfort.rating}" +
+                    "\nLatitude: ${presenter.hillfort.location.lat}" +
+                    "\nLatitude: ${presenter.hillfort.location.lng}"
+
+            val shareIntent = Intent()
+            shareIntent.action = Intent.ACTION_SEND
+            shareIntent.type="text/plain"
+            shareIntent.putExtra(Intent.EXTRA_TEXT, details);
+            startActivity(Intent.createChooser(shareIntent,"Share via"))
+        }
 
         // create an OnDateSetListener
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {

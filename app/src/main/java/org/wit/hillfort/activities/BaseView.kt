@@ -5,8 +5,12 @@ import android.content.Intent
 import android.os.Parcelable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.main_nav_header.*
+import kotlinx.android.synthetic.main.main_nav_header.view.*
 import org.jetbrains.anko.AnkoLogger
+import org.wit.hillfort.R
 
 import org.wit.hillfort.models.HillfortModel
 import org.wit.hillfort.models.Location
@@ -23,9 +27,10 @@ enum class VIEW {
     LOCATION, HILLFORT, MAPS, LIST, LOGIN
 }
 
-open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
+abstract class BaseView() : AppCompatActivity(), AnkoLogger {
 
     var basePresenter: BasePresenter? = null
+
 
     fun navigateTo(view: VIEW, code: Int = 0, key: String = "", value: Parcelable? = null) {
         var intent = Intent(this, HillfortListView::class.java)
@@ -52,9 +57,12 @@ open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val user = FirebaseAuth.getInstance().currentUser
+
         if (user != null) {
             toolbar.title = "${title}: ${user.email}"
+
         }
+
     }
 
     override fun onDestroy() {
@@ -81,3 +89,6 @@ open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
     open fun hideProgress() {}
 
 }
+
+
+

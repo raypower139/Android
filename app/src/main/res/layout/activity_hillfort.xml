@@ -78,8 +78,8 @@
 
       <EditText
           android:id="@+id/notes"
-          android:layout_width="309dp"
-          android:layout_height="60dp"
+          android:layout_width="244dp"
+          android:layout_height="62dp"
           android:layout_marginStart="10dp"
           android:autofillHints=""
           android:hint="@string/hint_hillfortNotes"
@@ -243,7 +243,7 @@
           android:id="@+id/fav_button"
           android:layout_width="52dp"
           android:layout_height="46dp"
-          android:layout_marginStart="24dp"
+          android:layout_marginStart="15dp"
           android:layout_marginTop="12dp"
           app:layout_constraintStart_toEndOf="@+id/notes"
           app:layout_constraintTop_toBottomOf="@+id/description"
@@ -259,6 +259,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+
+      <ImageView
+          android:id="@+id/shareButton"
+          android:layout_width="48dp"
+          android:layout_height="42dp"
+          android:layout_marginStart="15dp"
+          android:layout_marginTop="18dp"
+          app:layout_constraintStart_toEndOf="@+id/fav_button"
+          app:layout_constraintTop_toBottomOf="@+id/longVal"
+          app:srcCompat="@drawable/ic_share" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

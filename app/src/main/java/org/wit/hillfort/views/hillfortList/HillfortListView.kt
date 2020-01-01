@@ -2,26 +2,27 @@ package org.wit.hillfort.views.hillfortList
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_hillfort_list.*
+import kotlinx.android.synthetic.main.activity_hillfort_list.toolbar
+import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.main_nav_header.*
 import org.jetbrains.anko.startActivityForResult
-
 import org.wit.hillfort.R
 import org.wit.hillfort.models.HillfortModel
-import org.wit.hillfort.models.json.app
 import org.wit.hillfort.views.BaseView
-import org.wit.hillfort.views.VIEW
 import org.wit.hillfort.views.hillfort.HillfortView
 import org.wit.hillfort.views.hillfortFavouritesList.HillfortFavouriteListView
+
 
 class HillfortListView : BaseView() , HillfortListener, NavigationView.OnNavigationItemSelectedListener {
 
@@ -49,6 +50,10 @@ class HillfortListView : BaseView() , HillfortListener, NavigationView.OnNavigat
     val navView = findViewById<NavigationView>(R.id.nav_view)
     navView.setNavigationItemSelectedListener(this)
 
+    //val user = FirebaseAuth.getInstance().currentUser
+    //nav_header_email.text = user?.email
+
+
     val navigation: BottomNavigationView = findViewById(R.id.bottomNav) as BottomNavigationView
     navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
@@ -70,8 +75,8 @@ class HillfortListView : BaseView() , HillfortListener, NavigationView.OnNavigat
     return super.onCreateOptionsMenu(menu)
   }
 
-  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-    when (item?.itemId) {
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    when (item.itemId) {
       R.id.item_add -> presenter.doAddHillfort()
       R.id.item_map -> presenter.doShowHillfortsMap()
       R.id.item_logout ->presenter.doLogout()

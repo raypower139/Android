@@ -3,16 +3,19 @@ package org.wit.hillfort.models.firebase
 
 import android.content.Context
 import android.graphics.Bitmap
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.UploadTask
 import org.jetbrains.anko.AnkoLogger
 import org.wit.hillfort.helpers.readImageFromPath
 import org.wit.hillfort.models.HillfortModel
 import org.wit.hillfort.models.HillfortStore
 import java.io.ByteArrayOutputStream
 import java.io.File
+
 
 class HillfortFireStore(val context: Context) : HillfortStore, AnkoLogger {
 
@@ -66,6 +69,7 @@ class HillfortFireStore(val context: Context) : HillfortStore, AnkoLogger {
         hillforts.remove(hillfort)
 
 
+
     }
 
     override fun clear() {
@@ -111,7 +115,9 @@ class HillfortFireStore(val context: Context) : HillfortStore, AnkoLogger {
                     }
                 }
             }
+
         }
+
     }
 
 }
