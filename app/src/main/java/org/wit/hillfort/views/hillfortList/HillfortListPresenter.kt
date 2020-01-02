@@ -2,6 +2,9 @@ package org.wit.hillfort.views.hillfortList
 
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import org.jetbrains.anko.*
 import org.wit.hillfort.views.map.HillfortMapView
 import org.wit.hillfort.views.hillfort.HillfortView
@@ -16,7 +19,7 @@ import org.wit.hillfort.views.hillfortFavouritesList.HillfortFavouriteListView
 class HillfortListPresenter (view: BaseView) : BasePresenter(view) {
 
     //fun getHillforts() = app.hillforts.findAll()
-
+    var hillfort = HillfortModel()
     fun doAddHillfort() {
         view?.startActivityForResult<HillfortView>(0)
     }
@@ -47,6 +50,15 @@ class HillfortListPresenter (view: BaseView) : BasePresenter(view) {
         FirebaseAuth.getInstance().signOut()
         app.hillforts.clear()
         view?.navigateTo(VIEW.LOGIN)
+    }
+
+    fun doDelete() {
+        doAsync {
+            app.hillforts.delete(hillfort)
+            uiThread {
+                view?.finish()
+            }
+        }
     }
 }
 

@@ -1,9 +1,11 @@
 package org.wit.hillfort.views.hillfortList
 
+import android.content.ClipData
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
@@ -16,6 +18,7 @@ import kotlinx.android.synthetic.main.activity_hillfort_list.*
 import kotlinx.android.synthetic.main.activity_hillfort_list.toolbar
 import kotlinx.android.synthetic.main.activity_hillfort_nav.nav_view
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.card_hillfort.*
 
 import org.jetbrains.anko.startActivityForResult
 import org.wit.hillfort.R
@@ -106,7 +109,6 @@ class HillfortListView : BaseView() , HillfortListener, NavigationView.OnNavigat
       R.id.action_add -> presenter.doAddHillfort()
       R.id.action_fav -> presenter.doShowFavouriteHillfort()
       R.id.item_logout ->presenter.doLogout()
-
     }
     return true
   }
@@ -121,6 +123,7 @@ class HillfortListView : BaseView() , HillfortListener, NavigationView.OnNavigat
       }
       false
     }
+
 
 
 }

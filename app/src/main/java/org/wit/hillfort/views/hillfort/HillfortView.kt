@@ -94,12 +94,12 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
         })
 
         fav_button.setOnClickListener(View.OnClickListener {
-            if (hillfort.favourite == true) {
+            if (hillfort.favourite == false) {
                 fav_button.setBackgroundResource(fav_black)
-                hillfort.favourite = false
-            } else if (hillfort.favourite == false) {
-                fav_button.setBackgroundResource(fav_white)
                 hillfort.favourite = true
+            } else if (hillfort.favourite == true) {
+                fav_button.setBackgroundResource(fav_white)
+                hillfort.favourite = false
             }
         })
 
@@ -165,6 +165,12 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
             chooseImage.setText(R.string.change_hillfort_image)
         }
         this.showLocation(hillfort.location)
+        if (hillfort.favourite == true) {
+            fav_button.setBackgroundResource(fav_black)
+        } else if (hillfort.favourite == false) {
+            fav_button.setBackgroundResource(fav_white)
+        }
+
     }
 
 

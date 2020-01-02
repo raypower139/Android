@@ -40,6 +40,14 @@ class HillfortAdapter constructor(private var hillforts: List<HillfortModel>,
 
     override fun getItemCount(): Int = hillforts.size
 
+    /*
+    fun removeAt(position: Int) {
+        hillforts.removeAt(position)
+        notifyItemRemoved(position)
+    }
+    */
+
+
     class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(hillfort: HillfortModel, listener: HillfortListener) {
@@ -52,8 +60,6 @@ class HillfortAdapter constructor(private var hillforts: List<HillfortModel>,
             if (hillfort.visited){
                 itemView.setDate.text = hillfort.date
             }
-
-
             itemView.setOnClickListener { listener.onHillfortClick(hillfort) }
         }
     }
