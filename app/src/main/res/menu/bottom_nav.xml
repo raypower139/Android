@@ -14,6 +14,7 @@
     <item
         android:id="@+id/nav_map"
         android:icon="@drawable/fav_black"
-        android:title="Favourites"/>
+        android:title="Favourites"
+        />
 
 </menu>

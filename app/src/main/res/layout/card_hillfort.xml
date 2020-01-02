@@ -1,71 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cardView2"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="3dp"
     android:elevation="24dp">
 
-  <ImageView
-      android:id="@+id/imageIcon"
-      android:layout_width="111dp"
-      android:layout_height="83dp"
-      android:layout_marginStart="10dp"
-      android:layout_marginTop="5dp"
-      android:layout_marginEnd="5dp"
-      android:layout_marginBottom="5dp"
-      android:contentDescription="@string/change_hillfort_image"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@+id/description"
-      app:layout_constraintTop_toTopOf="parent" />
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/relativeLayout2"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
 
-  <TextView
-      android:id="@+id/hillfortTitle"
-      android:layout_width="250dp"
-      android:layout_height="31dp"
-      android:layout_marginStart="10dp"
-      android:textSize="24sp"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/imageIcon"
+        android:layout_width="112dp"
+        android:layout_height="84dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="10dp"
+        android:contentDescription="@string/change_hillfort_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/hillfortTitle"
+        app:layout_constraintTop_toTopOf="parent" />
 
-  <TextView
-      android:id="@+id/description"
-      android:layout_width="254dp"
-      android:layout_height="29dp"
-      android:layout_marginStart="10dp"
-      android:inputType="textMultiLine"
-      android:textSize="12sp"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/hillfortTitle" />
+    <TextView
+        android:id="@+id/hillfortTitle"
+        android:layout_width="252dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="6dp"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-
-  <CheckBox
-      android:id="@+id/visited_checkbox_card"
-      android:layout_width="82dp"
-      android:layout_height="32dp"
-      android:layout_marginStart="10dp"
-      android:layout_marginBottom="5dp"
-      android:text="Visited"
-      android:textSize="16dp"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/description" />
-
-  <TextView
-      android:id="@+id/setDate"
-      android:layout_width="128dp"
-      android:layout_height="30dp"
-      android:layout_marginStart="10dp"
-      android:layout_marginTop="3dp"
-      android:layout_marginBottom="5dp"
-      android:text=""
-      android:textSize="16dp"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toEndOf="@+id/visited_checkbox_card"
-      app:layout_constraintTop_toBottomOf="@+id/description" />
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="252dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="10dp"
+        android:inputType="textMultiLine"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hillfortTitle" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <CheckBox
+        android:id="@+id/visited_checkbox_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="2dp"
+        android:text="Visited"
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description" />
+
+    <TextView
+        android:id="@+id/setDate"
+        android:layout_width="124dp"
+        android:layout_height="0dp"
+
+
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="7dp"
+        android:text=""
+        android:textSize="16dp"
+        app:layout_constraintStart_toEndOf="@+id/visited_checkbox_card"
+        app:layout_constraintTop_toBottomOf="@+id/description" />
+
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

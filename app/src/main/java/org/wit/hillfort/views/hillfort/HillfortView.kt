@@ -131,7 +131,7 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 val myFormat = "dd-MM-yyyy" // mention the format you need
                 val sdf = SimpleDateFormat(myFormat, Locale.ENGLISH)
-                setDate.setText("" + dayOfMonth + "/" + monthOfYear + "/" + year)
+                setDate.setText("" + dayOfMonth + "/" + monthOfYear+1 + "/" + year)
                 toast(sdf.format(cal.time))
             }
         }

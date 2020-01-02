@@ -14,8 +14,8 @@ class LoginView : BaseView() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        init(toolbar)
-        progressBar.visibility = View.GONE
+        //init(toolbar)
+        //progressBar.visibility = View.GONE
         presenter = initPresenter(LoginPresenter(this)) as LoginPresenter
 
         signUp.setOnClickListener {
@@ -42,10 +42,10 @@ class LoginView : BaseView() {
     }
 
     override fun showProgress() {
-        progressBar.visibility = View.VISIBLE
+        //progressBar.visibility = View.VISIBLE
     }
 
     override fun hideProgress() {
-        progressBar.visibility = View.GONE
+        //progressBar.visibility = View.GONE
     }
 }
