@@ -30,10 +30,15 @@
         <activity
             android:name=".views.map.HillfortMapView"
             android:label="@string/title_activity_hillfort_maps"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.hillfortList.HillfortListView" />
+        </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+
 
         <activity
             android:name="org.wit.hillfort.views.editLocation.EditLocationView"
