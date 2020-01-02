@@ -14,14 +14,18 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_hillfort_list.*
 import kotlinx.android.synthetic.main.activity_hillfort_list.toolbar
+import kotlinx.android.synthetic.main.activity_hillfort_nav.nav_view
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.main_nav_header.*
+
 import org.jetbrains.anko.startActivityForResult
 import org.wit.hillfort.R
 import org.wit.hillfort.models.HillfortModel
+import org.wit.hillfort.models.json.app
 import org.wit.hillfort.views.BaseView
 import org.wit.hillfort.views.hillfort.HillfortView
 import org.wit.hillfort.views.hillfortFavouritesList.HillfortFavouriteListView
+
+
 
 
 class HillfortListView : BaseView() , HillfortListener, NavigationView.OnNavigationItemSelectedListener {
@@ -30,6 +34,7 @@ class HillfortListView : BaseView() , HillfortListener, NavigationView.OnNavigat
 
   private val drawerLayout by lazy {
     findViewById<DrawerLayout>(R.id.drawer_layout)
+
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,13 +51,8 @@ class HillfortListView : BaseView() , HillfortListener, NavigationView.OnNavigat
     recyclerView.layoutManager = layoutManager
     presenter.loadHillforts()
 
-
     val navView = findViewById<NavigationView>(R.id.nav_view)
     navView.setNavigationItemSelectedListener(this)
-
-    //val user = FirebaseAuth.getInstance().currentUser
-    //nav_header_email.text = user?.email
-
 
     val navigation: BottomNavigationView = findViewById(R.id.bottomNav) as BottomNavigationView
     navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
@@ -62,12 +62,19 @@ class HillfortListView : BaseView() , HillfortListener, NavigationView.OnNavigat
         R.string.open_nav_drawer, R.string.close_nav_drawer
     )
           drawerLayout.addDrawerListener(toggle)
+
+
           toggle.syncState()
     }
 
   override fun showHillforts(hillforts: List<HillfortModel>) {
     recyclerView.adapter = HillfortAdapter(hillforts, this)
     recyclerView.adapter?.notifyDataSetChanged()
+    val user = FirebaseAuth.getInstance().currentUser
+    //val navHeaderName = nav_view.getHeaderView(0).findViewById(R.id.nav_header_name) as TextView
+    val navHeaderEmail = nav_view.getHeaderView(0).findViewById(R.id.nav_header_email) as TextView
+    //navHeaderName.text = user?.name
+    navHeaderEmail.text = user?.email
   }
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {

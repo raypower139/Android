@@ -3,12 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <group android:checkableBehavior="single">
-  <item
+
+
+    <item
       android:id="@+id/action_add"
       android:title="@string/menu_addHillfort"
       android:icon="@drawable/ic_add"
-      app:showAsAction="never"
- />
+      app:showAsAction="never"/>
+
 
   <item
       android:id="@+id/action_fav"
