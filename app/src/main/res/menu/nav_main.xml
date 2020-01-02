@@ -26,6 +26,7 @@
       app:showAsAction="never"/>
   </group>
 
+  <!--
   <item android:title="Communicate">
     <menu>
       <item
@@ -38,8 +39,7 @@
           android:title="Close" />
     </menu>
   </item>
-
-
+  -->
 
   <item android:title="Access Control">
     <menu>
@@ -47,7 +47,9 @@
       android:id="@+id/item_logout"
       android:title="@string/menu_logout"
       android:visible="true"
-      app:showAsAction="never" />
+      app:showAsAction="never"
+      android:icon="@drawable/ic_logout"
+      />
 
   <item
       android:id="@+id/action_close"
