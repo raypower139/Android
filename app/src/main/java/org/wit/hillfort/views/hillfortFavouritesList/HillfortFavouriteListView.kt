@@ -96,7 +96,8 @@ class HillfortFavouriteListView : BaseView(),
     when (item.itemId) {
       R.id.action_add -> presenter.doAddHillfort()
       R.id.action_fav -> presenter.doShowFavouriteHillfort()
-      R.id.item_map -> startActivityForResult<HillfortMapView>(0)
+      R.id.item_map -> {startActivityForResult<HillfortMapView>(0)
+        overridePendingTransition(R.anim.slide_in_up, R.anim.no_anim);}
       R.id.item_logout ->presenter.doLogout()
       R.id.action_close -> finish()
     }
@@ -106,9 +107,12 @@ class HillfortFavouriteListView : BaseView(),
   private val mOnNavigationItemSelectedListener =
     BottomNavigationView.OnNavigationItemSelectedListener { item ->
       when (item.itemId) {
-        R.id.nav_home -> startActivityForResult<HillfortListView>(0)
-        R.id.nav_add -> startActivityForResult<HillfortView>(0)
-        R.id.nav_map -> startActivityForResult<HillfortMapView>(0)
+        R.id.nav_home -> {startActivityForResult<HillfortListView>(0)
+          overridePendingTransition(R.anim.slide_in_up, R.anim.no_anim);}
+        R.id.nav_add -> {startActivityForResult<HillfortView>(0)
+          overridePendingTransition(R.anim.slide_in_up, R.anim.no_anim);}
+        R.id.nav_map -> {startActivityForResult<HillfortFavouriteListView>(0)
+          overridePendingTransition(R.anim.slide_in_up, R.anim.no_anim);}
       }
       false
     }

@@ -26,6 +26,8 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.util.Size
 import android.graphics.Matrix
+import android.os.Build
+import android.transition.Slide
 import android.util.Log
 import android.view.*
 import android.widget.*
@@ -121,7 +123,7 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
         })
 
 
-        shareButton.setOnClickListener{
+        shareButton.setOnClickListener {
 
             val details = "Hillfort Details" +
                     "\n\nTitle: ${presenter.hillfort.title}" +
@@ -132,9 +134,9 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
 
             val shareIntent = Intent()
             shareIntent.action = Intent.ACTION_SEND
-            shareIntent.type="text/plain"
+            shareIntent.type = "text/plain"
             shareIntent.putExtra(Intent.EXTRA_TEXT, details);
-            startActivity(Intent.createChooser(shareIntent,"Share via"))
+            startActivity(Intent.createChooser(shareIntent, "Share via"))
         }
 
         // create an OnDateSetListener
@@ -148,7 +150,7 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 val myFormat = "dd-MM-yyyy" // mention the format you need
                 val sdf = SimpleDateFormat(myFormat, Locale.ENGLISH)
-                setDate.setText("" + dayOfMonth + "/" + monthOfYear+1 + "/" + year)
+                setDate.setText("" + dayOfMonth + "/" + monthOfYear + 1 + "/" + year)
                 toast(sdf.format(cal.time))
             }
         }
@@ -176,7 +178,8 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
             viewFinder.post { startCamera() }
         } else {
             ActivityCompat.requestPermissions(
-                this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
+                this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
+            )
         }
 
         // Every time the provided texture view changes, recompute layout
@@ -228,8 +231,10 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
         // Build the image capture use case and attach button click listener
         val imageCapture = ImageCapture(imageCaptureConfig)
         findViewById<Button>(R.id.capture_button).setOnClickListener {
-            val file = File(externalMediaDirs.first(),
-                "${System.currentTimeMillis()}.jpg")
+            val file = File(
+                externalMediaDirs.first(),
+                "${System.currentTimeMillis()}.jpg"
+            )
 
             imageCapture.takePicture(file, executor,
                 object : ImageCapture.OnImageSavedListener {
@@ -262,7 +267,8 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
             // In our analysis, we care more about the latest image than
             // analyzing *every* image
             setImageReaderMode(
-                ImageAnalysis.ImageReaderMode.ACQUIRE_LATEST_IMAGE)
+                ImageAnalysis.ImageReaderMode.ACQUIRE_LATEST_IMAGE
+            )
         }.build()
 
         // Build the image analysis use case and instantiate our analyzer
@@ -276,7 +282,8 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
         // version 1.1.0 or higher.
 
         CameraX.bindToLifecycle(
-            this, preview, imageCapture, analyzerUseCase)
+            this, preview, imageCapture, analyzerUseCase
+        )
     }
 
     private fun updateTransform() {
@@ -287,7 +294,7 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
         val centerY = viewFinder.height / 2f
 
         // Correct preview output to account for display rotation
-        val rotationDegrees = when(viewFinder.display.rotation) {
+        val rotationDegrees = when (viewFinder.display.rotation) {
             Surface.ROTATION_0 -> 0
             Surface.ROTATION_90 -> 90
             Surface.ROTATION_180 -> 180
@@ -318,7 +325,8 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
             val currentTimestamp = System.currentTimeMillis()
             // Calculate the average luma no more often than every second
             if (currentTimestamp - lastAnalyzedTimestamp >=
-                TimeUnit.SECONDS.toMillis(1)) {
+                TimeUnit.SECONDS.toMillis(1)
+            ) {
                 // Since format in ImageAnalysis is YUV, image.planes[0]
                 // contains the Y (luminance) plane
                 val buffer = image.planes[0].buffer
@@ -341,14 +349,17 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
      * been granted? If yes, start Camera. Otherwise display a toast
      */
     override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        requestCode: Int, permissions: Array<String>, grantResults: IntArray
+    ) {
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
             if (allPermissionsGranted()) {
                 viewFinder.post { startCamera() }
             } else {
-                Toast.makeText(this,
+                Toast.makeText(
+                    this,
                     "Permissions not granted by the user.",
-                    Toast.LENGTH_SHORT).show()
+                    Toast.LENGTH_SHORT
+                ).show()
                 finish()
             }
         }
@@ -359,7 +370,8 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
      */
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(
-            baseContext, it) == PackageManager.PERMISSION_GRANTED
+            baseContext, it
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
     override fun showHillfort(hillfort: HillfortModel) {
@@ -432,8 +444,9 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
         drawerLayout.closeDrawer(GravityCompat.START)
         when (item.itemId) {
             R.id.action_add -> startActivity<HillfortView>()
+            R.id.action_close -> {finishAffinity()
+            overridePendingTransition(R.anim.no_anim, R.anim.slide_out_down);}
 
-            R.id.action_close -> finishAffinity()
         }
         return true
     }
@@ -472,6 +485,8 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
         super.onSaveInstanceState(outState)
         mapView.onSaveInstanceState(outState)
     }
+
+
 }
 
 
