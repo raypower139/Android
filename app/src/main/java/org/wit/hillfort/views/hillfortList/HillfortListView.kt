@@ -27,8 +27,7 @@ import org.wit.hillfort.models.json.app
 import org.wit.hillfort.views.BaseView
 import org.wit.hillfort.views.hillfort.HillfortView
 import org.wit.hillfort.views.hillfortFavouritesList.HillfortFavouriteListView
-
-
+import org.wit.hillfort.views.map.HillfortMapView
 
 
 class HillfortListView : BaseView() , HillfortListener, NavigationView.OnNavigationItemSelectedListener {
@@ -108,7 +107,9 @@ class HillfortListView : BaseView() , HillfortListener, NavigationView.OnNavigat
     when (item.itemId) {
       R.id.action_add -> presenter.doAddHillfort()
       R.id.action_fav -> presenter.doShowFavouriteHillfort()
+      R.id.item_map -> startActivityForResult<HillfortMapView>(0)
       R.id.item_logout ->presenter.doLogout()
+      R.id.action_close -> finish()
     }
     return true
   }
@@ -118,7 +119,7 @@ class HillfortListView : BaseView() , HillfortListener, NavigationView.OnNavigat
       when (item.itemId) {
         R.id.nav_home -> startActivityForResult<HillfortListView>(0)
         R.id.nav_add -> startActivityForResult<HillfortView>(0)
-        R.id.nav_map -> startActivityForResult<HillfortFavouriteListView>(0)
+        R.id.nav_map -> startActivityForResult<HillfortMapView>(0)
 
       }
       false

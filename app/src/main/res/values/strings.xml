@@ -11,7 +11,7 @@
     <string name="enter_hillfort_title"> Please enter a Hillfort Title </string>
     <string name="save_hillfort"> Save Hillfort </string>
 
-
+    <string name="button_takeImage"> Take Image </string>
     <string name="button_addImage"> Add Image </string>
     <string name="button_location">Set Location</string>
 

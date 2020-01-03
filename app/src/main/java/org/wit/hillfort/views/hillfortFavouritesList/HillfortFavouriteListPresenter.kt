@@ -1,6 +1,7 @@
 package org.wit.hillfort.views.hillfortFavouritesList
 
 
+import com.google.firebase.auth.FirebaseAuth
 import org.jetbrains.anko.*
 import org.wit.hillfort.views.map.HillfortMapView
 import org.wit.hillfort.views.hillfort.HillfortView
@@ -39,6 +40,12 @@ class HillfortFavouriteListPresenter (view: BaseView) : BasePresenter(view) {
 
             }
         }
+    }
+
+    fun doLogout() {
+        FirebaseAuth.getInstance().signOut()
+        app.hillforts.clear()
+        view?.navigateTo(VIEW.LOGIN)
     }
 
 }
