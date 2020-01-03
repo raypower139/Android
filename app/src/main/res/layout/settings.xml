@@ -44,28 +44,25 @@
                 <TextView
                     android:id="@+id/textView3"
                     android:layout_width="match_parent"
-                    android:layout_height="67dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="sans-serif-medium"
                     android:text="User Settings"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textFontWeight="500"
-                    android:textSize="40dp"
-                    android:layout_marginTop="10dp"
+                    android:textFontWeight="800"
+                    android:textSize="30dp"
 
                     />
 
                 <TextView
                     android:id="@+id/showEmail"
-                    android:layout_width="300dp"
+                    android:layout_width="347dp"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="text"
                     android:layout_marginStart="60dp"
                     android:layout_marginTop="20dp"
-                    android:padding="10dp"
-                    android:background="@color/colorPrimary"
-                    />
+                    android:textFontWeight="500"
+                    android:textSize="20dp" />
 
                 <TextView
                     android:id="@+id/numberOfHillforts"
@@ -95,17 +92,22 @@
                     android:layout_height="31dp"
                     android:layout_marginStart="60dp"
                     android:layout_marginTop="20dp"
-                    android:text="Number of Hillforts Visited"
+                    android:text="Number of Favourites"
                     android:textFontWeight="500"
                     android:textSize="20dp"
                     />
 
 
 
-
             </LinearLayout>
+
+
+
+
 
         </ScrollView>
 
     </RelativeLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
