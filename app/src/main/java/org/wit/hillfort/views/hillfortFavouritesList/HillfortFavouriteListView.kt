@@ -13,6 +13,8 @@ import kotlinx.android.synthetic.main.activity_hillfort_list.*
 import org.jetbrains.anko.startActivityForResult
 
 import org.wit.hillfort.R
+import org.wit.hillfort.R.anim.no_anim
+import org.wit.hillfort.R.anim.slide_out_down
 import org.wit.hillfort.models.HillfortModel
 import org.wit.hillfort.views.BaseView
 import org.wit.hillfort.views.hillfort.HillfortView
@@ -76,7 +78,7 @@ class HillfortFavouriteListView : BaseView(),
 
   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
     when (item?.itemId) {
-      R.id.item_add -> presenter.doAddHillfort()
+      //R.id.item_add -> presenter.doAddHillfort()
       R.id.item_map -> presenter.doShowHillfortsMap()
     }
     return super.onOptionsItemSelected(item)
@@ -97,9 +99,10 @@ class HillfortFavouriteListView : BaseView(),
       R.id.action_add -> presenter.doAddHillfort()
       R.id.action_fav -> presenter.doShowFavouriteHillfort()
       R.id.item_map -> {startActivityForResult<HillfortMapView>(0)
-        overridePendingTransition(R.anim.slide_in_up, R.anim.no_anim);}
+        overridePendingTransition(R.anim.slide_in_up, no_anim);}
       R.id.item_logout ->presenter.doLogout()
-      R.id.action_close -> finish()
+      R.id.action_close -> {finishAffinity()
+        overridePendingTransition(no_anim, slide_out_down);}
     }
     return true
   }
@@ -108,11 +111,11 @@ class HillfortFavouriteListView : BaseView(),
     BottomNavigationView.OnNavigationItemSelectedListener { item ->
       when (item.itemId) {
         R.id.nav_home -> {startActivityForResult<HillfortListView>(0)
-          overridePendingTransition(R.anim.slide_in_up, R.anim.no_anim);}
+          overridePendingTransition(R.anim.slide_in_up, no_anim);}
         R.id.nav_add -> {startActivityForResult<HillfortView>(0)
-          overridePendingTransition(R.anim.slide_in_up, R.anim.no_anim);}
+          overridePendingTransition(R.anim.slide_in_up, no_anim);}
         R.id.nav_map -> {startActivityForResult<HillfortFavouriteListView>(0)
-          overridePendingTransition(R.anim.slide_in_up, R.anim.no_anim);}
+          overridePendingTransition(R.anim.slide_in_up, no_anim);}
       }
       false
     }

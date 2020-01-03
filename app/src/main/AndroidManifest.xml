@@ -51,6 +51,14 @@
         </activity>
 
         <activity
+            android:name="org.wit.hillfort.activities.Settings"
+            android:label="Settings" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.hillfortList.HillfortListView" />
+        </activity>
+
+        <activity
             android:name="org.wit.hillfort.views.hillfort.HillfortView"
             android:parentActivityName="org.wit.hillfort.views.hillfortList.HillfortListView">
             <meta-data

@@ -34,6 +34,7 @@ import android.widget.*
 import androidx.camera.core.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import org.wit.hillfort.R.anim.slide_out_down
 import java.io.File
 import java.nio.ByteBuffer
 import java.util.concurrent.Executors
@@ -445,7 +446,7 @@ class HillfortView : BaseView(), AnkoLogger, NavigationView.OnNavigationItemSele
         when (item.itemId) {
             R.id.action_add -> startActivity<HillfortView>()
             R.id.action_close -> {finishAffinity()
-            overridePendingTransition(R.anim.no_anim, R.anim.slide_out_down);}
+            overridePendingTransition(R.anim.no_anim, slide_out_down);}
 
         }
         return true
