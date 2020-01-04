@@ -3,7 +3,7 @@
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey_100"
+    android:background="@color/colorPrimaryDark"
     android:orientation="vertical"
     android:weightSum="4">
 
@@ -17,8 +17,8 @@
         <ImageView
             android:id="@+id/icon"
             style="@style/ThemeOverlay.FirebaseIcon"
-            android:layout_width="286dp"
-            android:layout_height="325dp"
+            android:layout_width="341dp"
+            android:layout_height="338dp"
             android:contentDescription="@string/desc_firebase_lockup"
             android:src="@drawable/hillfort" />
 
