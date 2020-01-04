@@ -3,13 +3,16 @@ package org.wit.hillfort.views.hillfortFavouritesList
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_hillfort_list.*
+import kotlinx.android.synthetic.main.activity_hillfort_nav.*
 import org.jetbrains.anko.startActivityForResult
 
 import org.wit.hillfort.R
@@ -66,9 +69,11 @@ class HillfortFavouriteListView : BaseView(),
     }
 
   override fun showHillforts(hillforts: List<HillfortModel>) {
-    recyclerView.adapter =
-      HillfortAdapter(hillforts, this)
+    recyclerView.adapter = HillfortAdapter(hillforts, this)
     recyclerView.adapter?.notifyDataSetChanged()
+    val user = FirebaseAuth.getInstance().currentUser
+    val navHeaderEmail = nav_view.getHeaderView(0).findViewById(R.id.nav_header_email) as TextView
+    navHeaderEmail.text = user?.email
   }
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -5,6 +5,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import org.jetbrains.anko.custom.async
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import org.wit.hillfort.main.MainApp
@@ -14,7 +15,7 @@ import org.wit.hillfort.views.BaseView
 
 
 class HillfortMapPresenter(view: BaseView) : BasePresenter(view) {
-
+    
 
     fun doPopulateMap(map: GoogleMap, hillforts: List<HillfortModel>) {
         map.uiSettings.setZoomControlsEnabled(true)
@@ -30,9 +31,12 @@ class HillfortMapPresenter(view: BaseView) : BasePresenter(view) {
         val tag = marker.tag as Long
         doAsync {
             val hillfort = app.hillforts.findById(tag)
-            uiThread {
-                if (hillfort != null) view?.showHillfort(hillfort)
-            }}}
+            if (hillfort != null)
+                uiThread {
+                 view?.showHillfort(hillfort)
+            }
+}
+}
 
     fun loadHillforts() {
         doAsync {

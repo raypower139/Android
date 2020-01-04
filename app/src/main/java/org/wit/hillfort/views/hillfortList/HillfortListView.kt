@@ -75,9 +75,7 @@ class HillfortListView : BaseView() , HillfortListener, NavigationView.OnNavigat
     recyclerView.adapter = HillfortAdapter(hillforts, this)
     recyclerView.adapter?.notifyDataSetChanged()
     val user = FirebaseAuth.getInstance().currentUser
-    //val navHeaderName = nav_view.getHeaderView(0).findViewById(R.id.nav_header_name) as TextView
     val navHeaderEmail = nav_view.getHeaderView(0).findViewById(R.id.nav_header_email) as TextView
-    //navHeaderName.text = user?.name
     navHeaderEmail.text = user?.email
   }
 
