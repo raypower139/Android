@@ -108,9 +108,9 @@ class HillfortListView : BaseView() , HillfortListener, NavigationView.OnNavigat
       R.id.action_add -> presenter.doAddHillfort()
       R.id.action_fav -> presenter.doShowFavouriteHillfort()
       R.id.item_map -> {startActivityForResult<HillfortMapView>(0)
-        overridePendingTransition(R.anim.slide_in_up, no_anim);}
+        overridePendingTransition(slide_in_up, no_anim);}
       R.id.item_settings -> {startActivityForResult<Settings>(0)
-        overridePendingTransition(R.anim.slide_in_up, no_anim);}
+        overridePendingTransition(slide_in_up, no_anim);}
       R.id.item_logout ->presenter.doLogout()
         R.id.action_close -> {finishAffinity()
             overridePendingTransition(no_anim, slide_out_down);}

@@ -59,7 +59,7 @@
                     android:id="@+id/showEmail"
                     android:layout_width="347dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="60dp"
+                    android:layout_marginStart="30dp"
                     android:layout_marginTop="20dp"
                     android:textFontWeight="500"
                     android:textSize="20dp" />
@@ -68,34 +68,31 @@
                     android:id="@+id/numberOfHillforts"
                     android:layout_width="match_parent"
                     android:layout_height="31dp"
-                    android:layout_marginStart="60dp"
+                    android:layout_marginStart="30dp"
                     android:layout_marginTop="20dp"
                     android:text="Number of Hillforts"
                     android:textFontWeight="500"
-                    android:textSize="20dp"
-                    />
+                    android:textSize="20dp" />
 
                 <TextView
                     android:id="@+id/numberOfHillfortsVisited"
                     android:layout_width="match_parent"
                     android:layout_height="31dp"
-                    android:layout_marginStart="60dp"
+                    android:layout_marginStart="30dp"
                     android:layout_marginTop="20dp"
                     android:text="Number of Hillforts Visited"
                     android:textFontWeight="500"
-                    android:textSize="20dp"
-                    />
+                    android:textSize="20dp" />
 
                 <TextView
                     android:id="@+id/numberOfFavourtieHillforts"
                     android:layout_width="match_parent"
                     android:layout_height="31dp"
-                    android:layout_marginStart="60dp"
+                    android:layout_marginStart="30dp"
                     android:layout_marginTop="20dp"
                     android:text="Number of Favourites"
                     android:textFontWeight="500"
-                    android:textSize="20dp"
-                    />
+                    android:textSize="20dp" />
 
 
 
